@@ -43,5 +43,7 @@ if __name__ == "__main__":
     test = UseTest('TCUI_USE_01')
     #logging.info("Executing %s", testName)
     
-    test.Setup()
+
+    test.Test()
+
     print "ok"

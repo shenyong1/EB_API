@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # step definitions
 
-import lettuce
+
 import requests
 import json
 import random
@@ -9,8 +9,7 @@ import logging
 import datetime
 import time
 from EB_API_Config import *
-from lettuce.core import Step
-from distutils.core import setup
+from behave import *
 
 
 
@@ -58,8 +57,8 @@ def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,
 #             print "Modify_RoomType is Failed. "
             return False            
 
-@Step("Del_RoomType")
-def Del_RoomType(url,RoomTypeID):
+@step('Del_RoomType "{url}" and "{RoomTypeID}"')
+def Del_RoomType(context,url,RoomTypeID):
     r = requests.request('DELETE', url+RoomTypeID, headers=Headers)
     Del_RoomType_data = json.loads(r.text)
     businessCode=CommonMoudle(Del_RoomType_data['businessCode'] ,200)
@@ -73,8 +72,8 @@ def Del_RoomType(url,RoomTypeID):
 #         print "Del_RoomType is Failed. "
         return False        
 
-@Step("Add_RoomType")
-def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
+@step('Add_RoomType "{url}" and "{RoomTypeName}" and "{RoomNumber}"')
+def Add_RoomType(context,url,RoomTypeName,RoomNumber,weekdayPrice=300):
         payload = {
                    "RoomTypeName": RoomTypeName,
                    "weekdayPrice": weekdayPrice,
@@ -105,8 +104,8 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
 #             print "Add_RoomType is Failed. "
             return False
 
-@setup("Search_All_RoomType")
-def Search_All_RoomType(url,RoomTypeName=None,RoomNumber=None):
+@step('Search_All_RoomType "{url}" and "{RoomTypeName}" and "{RoomNumber}"')
+def Search_All_RoomType(context,url,RoomTypeName=None,RoomNumber=None):
     r = requests.request('GET', url, headers=Headers)
     All_RoomType_data = json.loads(r.text)
 
