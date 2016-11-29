@@ -4,29 +4,46 @@ import random
 import logging
 import datetime
 import time
+import MySQLdb
+
+conn= MySQLdb.connect(
+        host='192.168.9.24',
+        port = 3306,
+        user='root',
+        passwd='p@ssw0rd',
+        db ='iPms',
+        )
+
+cur = conn.cursor()
+RoomTypeTotal=cur.execute("SELECT * FROM iPms.RoomType where orgid = 434265567985667 and IsActive = 1;")
+print RoomTypeTotal
+
+# info = cur.fetchmany(RoomTypeTotal)
+# for ii in info:
+#     print ii[1]
+
 
 
 today = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
 
-Server='http://testwww.51pms.net'
+Server='http://192.168.32.179'
 
-Port='8001'
+Port=''
 
-Add_RoomType_API             ='/api/rooms/RoomType/'
 
-Del_RoomType_API              ='/api/rooms/RoomType/'
+RoomType_API          ='/api/rooms/RoomType/'
 
-Search_All_RoomType_API   ='/api/rooms/RoomTypes/'
+Search_RoomType_API   ='/api/rooms/RoomTypes/'
 
-Modify_RoomType_API       ='/api/rooms/RoomType/'
+RoomType_Status_API   ='/api/rooms/CanDeleteRoomType/'
 
-Add_RoomType_url              = Server+":"+Port+Add_RoomType_API
 
-Search_All_RoomType_url     = Server+":"+Port+Search_All_RoomType_API
 
-Del_RoomType_url                = Server+":"+Port+Del_RoomType_API
+RoomType_API_url     = Server+Port+RoomType_API
 
-Modify_RoomType_url          = Server+":"+Port+Modify_RoomType_API
+RoomType_Status_url  = Server+Port+RoomType_Status_API
+
+Search_RoomType_url  = Server+Port+Search_RoomType_API 
 
 Room ={'RoomTypeName':random.getrandbits(20),'RoomNumber':random.getrandbits(20),'NewRoomTypeName':random.getrandbits(30)}
 

@@ -1,4 +1,5 @@
 from Config.EB_API_Config import *
+from nose.config import flag
 
 def CommonMoudle(Path,data):
     if Path==data:
@@ -89,10 +90,19 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
             return False
 
 
-def Search_All_RoomType(url,RoomTypeName=None,RoomNumber=None):
+def Search_RoomType(url,RoomTypeName=None,RoomNumber=None):
+#     print RoomTypeName
+#     info = cur.fetchmany(RoomTypeTotal)
+#     for ii in info:
+#         if ii[1]==RoomTypeName:
+#             print ii[1]
+#             print "OK"
+#         else:
+#             print "Error"
+#             continue
+
     r = requests.request('GET', url, headers=Headers)
     All_RoomType_data = json.loads(r.text)
-
         
     if  RoomTypeName is None and RoomNumber is None:
         businessCode=CommonMoudle(All_RoomType_data['businessCode'] ,200)
@@ -105,26 +115,68 @@ def Search_All_RoomType(url,RoomTypeName=None,RoomNumber=None):
             return False                               
 
     else:
+        flag=True
+
+        total=len(All_RoomType_data['data'])
+        print total
+        
+        if total==RoomTypeTotal:
+            print "RoomType TotalAmount is Right"
+            return True
+        else:
+            print "RoomType TotalAmount is Error"
+            return False
+        
         for v in All_RoomType_data['data']:
             i=v
             if i['RoomTypeName']==RoomTypeName:
                 for v in i['Rooms']:
                     if v['RoomNumber']==RoomNumber:
                         print "Add_RoomType is Pass In Search_All_RoomType!. Date:%s"%today
+                        flag=False
                         return True
                     else:
                         print "Add_RoomType is Failed In Search_All_RoomType!. Date:%s"%today 
                         return False
-        else:
-            print "Add_RoomType is Failed In Search_All_RoomType!!. Date:%s"%today 
-            return False
-                      
-if __name__ == "__main__":
-    RoomID=Add_RoomType(Add_RoomType_url,Room['RoomTypeName'],Room['RoomNumber'])
-    Del_RoomType(Del_RoomType_url, RoomID[2])
+                        continue                 
+    if flag:
+        print "Add_RoomType is Failed In Search_All_RoomType!!. Date:%s"%today
+        
+def RoomType_Status(url,RoomTypeId=None):
+    print RoomTypeId
+    if RoomTypeId==None:
+        print "RooMTypeID is None Date:%s"%today
+        return False
+    r = requests.request('GET', url+RoomTypeId, headers=Headers)
+    RoomType_Status_data = json.loads(r.text)
 
-    Search_All_RoomType(Search_All_RoomType_url,RoomID[0],RoomID[1])
-#     Modify_RoomType(Modify_RoomType_url,Room['NewRoomTypeName'],RoomID[2],999,RoomID[1],RoomID[3],False)
+    Status=CommonMoudle(RoomType_Status_data['data'] ,True)
+    
+    if Status==True:
+        print "RoomType_Status is True. Date:%s"%today
+        return True
+    elif Status==False:
+        print "RoomType_Status is False. Date:%s"%today
+        return True
+    else:
+        print "RoomType_Status is failed. Date:%s"%today
+        return False
+        
+        
+#     else:
+#         print "RoomType_Status is Failed. Date:%s"%today 
+#         return False                
+              
+if __name__ == "__main__":
+    RoomID=Add_RoomType(RoomType_API_url,Room['RoomTypeName'],Room['RoomNumber'])
+#     RoomType_Status(RoomType_Status_url,RoomID[2])
+#     
+#     Del_RoomType(RoomType_API_url, RoomID[2])
+#     
+#     RoomType_Status(RoomType_Status_url,RoomID[2])
+
+    Search_RoomType(Search_RoomType_url,RoomID[0],RoomID[1])
+#     Modify_RoomType(RoomType_API_url,Room['NewRoomTypeName'],RoomID[2],999,RoomID[1],RoomID[3],False)
 
 
 
