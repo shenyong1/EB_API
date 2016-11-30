@@ -77,6 +77,7 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
         Add_RoomType_data = json.loads(r.text)
         businessCode=CommonMoudle(Add_RoomType_data['businessCode'] ,200)
         resultCode=CommonMoudle(Add_RoomType_data['resultCode'] ,200) 
+        Message=Add_RoomType_data['Message']
         
         if businessCode & resultCode ==True:
             print "Add_RoomType is Pass. Date:%s"%today   
@@ -86,9 +87,8 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
             RoomID=Add_RoomType_data['data']['Rooms'][0]['Id']
             return (RoomTypeName,RoomNumber,RoomTypeId,RoomID,True)
         else:
-            print "Add_RoomType is Failed. Date:%s"%today
+            print "Add_RoomType is Failed. Message：%d Date:%s"%Message,%today
             return False
-
 
 def Search_RoomType(url,RoomTypeName=None,RoomNumber=None,RoomTypeId=None):
     r = requests.request('GET', url, headers=Headers)
