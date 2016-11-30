@@ -80,14 +80,14 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
         Message=Add_RoomType_data['Message']
         
         if businessCode & resultCode ==True:
-            print "Add_RoomType is Pass. Date:%s"%today   
+            print "Add_RoomType is Pass. Message:%%s Date:%s"%today%Message   
             RoomTypeName=Add_RoomType_data['data']['RoomTypeName']
             RoomNumber=Add_RoomType_data['data']['Rooms'][0]['RoomNumber']
             RoomTypeId=Add_RoomType_data['data']['Rooms'][0]['RoomTypeId']
             RoomID=Add_RoomType_data['data']['Rooms'][0]['Id']
             return (RoomTypeName,RoomNumber,RoomTypeId,RoomID,True)
         else:
-            print "Add_RoomType is Failed. Message：%d Date:%s"%Message,%today
+            print "Add_RoomType is Failed. Message:%%s Date:%s"%today%Message
             return False
 
 def Search_RoomType(url,RoomTypeName=None,RoomNumber=None,RoomTypeId=None):

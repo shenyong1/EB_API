@@ -14,13 +14,12 @@ class UseTest():
         if (result != True):
             return result
         
-        result = Add_RoomType(RoomType_API_url,RoomID[0],RoomID[1])
+        Add_RoomType(RoomType_API_url,RoomID[0],RoomID[1])
+
+        
+        result = Add_RoomType(RoomType_API_url,RoomID[0],Room['NewRoomTypeName'])
         if (result != True):
             return result
-        
-#         result = Search_RoomType(Search_RoomType_url,RoomID[0],RoomID[1])
-#         if (result != True):
-#             return result
         
 
 
