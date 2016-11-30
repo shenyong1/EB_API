@@ -14,16 +14,6 @@ conn= MySQLdb.connect(
         db ='iPms',
         )
 
-cur = conn.cursor()
-RoomTypeTotal=cur.execute("SELECT * FROM iPms.RoomType where orgid = 434265567985667 and IsActive = 1;")
-print RoomTypeTotal
-
-# info = cur.fetchmany(RoomTypeTotal)
-# for ii in info:
-#     print ii[1]
-
-
-
 today = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
 
 Server='http://192.168.32.179'

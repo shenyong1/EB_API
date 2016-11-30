@@ -90,17 +90,7 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
             return False
 
 
-def Search_RoomType(url,RoomTypeName=None,RoomNumber=None):
-#     print RoomTypeName
-#     info = cur.fetchmany(RoomTypeTotal)
-#     for ii in info:
-#         if ii[1]==RoomTypeName:
-#             print ii[1]
-#             print "OK"
-#         else:
-#             print "Error"
-#             continue
-
+def Search_RoomType(url,RoomTypeName=None,RoomNumber=None,RoomTypeId=None):
     r = requests.request('GET', url, headers=Headers)
     All_RoomType_data = json.loads(r.text)
         
@@ -108,42 +98,41 @@ def Search_RoomType(url,RoomTypeName=None,RoomNumber=None):
         businessCode=CommonMoudle(All_RoomType_data['businessCode'] ,200)
         resultCode=CommonMoudle(All_RoomType_data['resultCode'] ,200)
         if businessCode==True and resultCode==True:
-            print "Search_All_RoomType is Pass. Date:%s"%today
+            print "Search_RoomType is Pass. Date:%s"%today
             return True
         else:
-            print "Search_All_RoomType is Failed!!. Date:%s"%today
+            print "Search_RoomType is Failed!!. Date:%s"%today
             return False                               
 
     else:
-        flag=True
-
-        total=len(All_RoomType_data['data'])
-        print total
-        
-        if total==RoomTypeTotal:
-            print "RoomType TotalAmount is Right"
-            return True
-        else:
-            print "RoomType TotalAmount is Error"
-            return False
-        
+        flag=True        
         for v in All_RoomType_data['data']:
             i=v
             if i['RoomTypeName']==RoomTypeName:
                 for v in i['Rooms']:
                     if v['RoomNumber']==RoomNumber:
-                        print "Add_RoomType is Pass In Search_All_RoomType!. Date:%s"%today
+                        print "Add_RoomType is Pass In Search_RoomType!. Date:%s"%today
                         flag=False
-                        return True
                     else:
-                        print "Add_RoomType is Failed In Search_All_RoomType!. Date:%s"%today 
-                        return False
+                        print "Add_RoomType is Failed In Search_RoomType!. Date:%s"%today 
                         continue                 
     if flag:
-        print "Add_RoomType is Failed In Search_All_RoomType!!. Date:%s"%today
+        print "Add_RoomType is Failed In Search_RoomType!!. Date:%s"%today
+        return False
+        
+    sql=("SELECT * FROM iPms.RoomType where id = '%s' and IsVirtual = 1;")%RoomTypeId
+    curs = conn.cursor()
+    RoomTypeTotal=curs.execute(sql)
+    conn.close()
+    
+    if RoomTypeTotal==1:
+        print "DB:RoomType TotalAmount is Pass"
+        return True
+    else:
+        print "DB:RoomType TotalAmount is Failed"
+        return False
         
 def RoomType_Status(url,RoomTypeId=None):
-    print RoomTypeId
     if RoomTypeId==None:
         print "RooMTypeID is None Date:%s"%today
         return False
@@ -162,21 +151,20 @@ def RoomType_Status(url,RoomTypeId=None):
         print "RoomType_Status is failed. Date:%s"%today
         return False
         
-        
-#     else:
-#         print "RoomType_Status is Failed. Date:%s"%today 
-#         return False                
-              
+                                   
 if __name__ == "__main__":
     RoomID=Add_RoomType(RoomType_API_url,Room['RoomTypeName'],Room['RoomNumber'])
-#     RoomType_Status(RoomType_Status_url,RoomID[2])
-#     
-#     Del_RoomType(RoomType_API_url, RoomID[2])
-#     
-#     RoomType_Status(RoomType_Status_url,RoomID[2])
+    
+    RoomType_Status(RoomType_Status_url,RoomID[2])
+    
+    Modify_RoomType(RoomType_API_url,Room['NewRoomTypeName'],RoomID[2],999,RoomID[1],RoomID[3],False)
+      
+    Del_RoomType(RoomType_API_url, RoomID[2]) 
+        
+    RoomType_Status(RoomType_Status_url,RoomID[2])
+    
+    Search_RoomType(Search_RoomType_url,RoomID[0],RoomID[1],RoomID[2])
 
-    Search_RoomType(Search_RoomType_url,RoomID[0],RoomID[1])
-#     Modify_RoomType(RoomType_API_url,Room['NewRoomTypeName'],RoomID[2],999,RoomID[1],RoomID[3],False)
 
 
 
