@@ -80,14 +80,14 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
         Message=Add_RoomType_data['Message']
         
         if businessCode & resultCode ==True:
-            print "Add_RoomType is Pass. Message:%%s Date:%s"%today%Message   
+            print "Add_RoomType is Pass. Message:%s Date:%s"%(Message,today)  
             RoomTypeName=Add_RoomType_data['data']['RoomTypeName']
             RoomNumber=Add_RoomType_data['data']['Rooms'][0]['RoomNumber']
             RoomTypeId=Add_RoomType_data['data']['Rooms'][0]['RoomTypeId']
             RoomID=Add_RoomType_data['data']['Rooms'][0]['Id']
             return (RoomTypeName,RoomNumber,RoomTypeId,RoomID,True)
         else:
-            print "Add_RoomType is Failed. Message:%%s Date:%s"%today%Message
+            print "Add_RoomType is Failed. Message:%s Date:%s"%(Message,today)
             return False
 
 def Search_RoomType(url,RoomTypeName=None,RoomNumber=None,RoomTypeId=None):
@@ -126,10 +126,10 @@ def Search_RoomType(url,RoomTypeName=None,RoomNumber=None,RoomTypeId=None):
     conn.close()
     
     if RoomTypeTotal==1:
-        print "DB:RoomType TotalAmount is Pass"
+        print "Data:RoomType TotalAmount is Pass"
         return True
     else:
-        print "DB:RoomType TotalAmount is Failed"
+        print "Data:RoomType TotalAmount is Failed"
         return False
         
 def RoomType_Status(url,RoomTypeId=None):

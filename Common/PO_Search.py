@@ -5,11 +5,13 @@ from nose.config import flag
 def CommonMoudle(name,TotalAmount,length):
     if TotalAmount>=10: 
         if length==10:
-            print "%s JSOM_Data is Right."%name
+            print "%s JSOM_Data is Right.Date:%s"%(name,today)
 
         else:
-            print "%s JSOM_Data is Error."%name
+            print "%s JSOM_Data is Error.Date:%s"%(name,today)
             return False
+    else:
+        print "%s JSOM_Data is %s.Date:%s"%(name,TotalAmount,today)
 
 def Name(url,storeid,name):
     CustomerName="&CustomerName=%s"%name
@@ -17,7 +19,7 @@ def Name(url,storeid,name):
     All_Name_data = json.loads(r.text)
     TotalAmount=All_Name_data['data']['TotalCount']
     length=len(All_Name_data['data']['Data'])
-    CommonMoudle("Search for all Name orders" , TotalAmount,length)
+    CommonMoudle("Search for By Name orders" , TotalAmount,length)
 
 #     print "json:%s"%TotalAmount    
     sql=("select * from iPmsBiz.`Order` where ownerId=%s and MainliaisonName='%s';")%(storeid,name)
@@ -28,10 +30,10 @@ def Name(url,storeid,name):
     conn.close()
     
     if TotalAmount==All_Name_Total:
-        print "Search for Name orders is Pass."  
+        print "Search for By Name orders is Pass. Date:%s"%today  
         return True
     else:
-        print "Search for Name orders is Failed."  
+        print "Search for By Name orders is Failed. Json:%s,Data:%s,Date:%s"%(TotalAmount,All_Name_Total,today)  
         return False
 
     
@@ -40,10 +42,7 @@ def All_Store(url,storeid):
     All_Store_data = json.loads(r.text)
     TotalAmount=All_Store_data['data']['TotalCount']
     length=len(All_Store_data['data']['Data'])
-    CommonMoudle("Search for all store orders" , TotalAmount,length)
-
-
-        
+    CommonMoudle("Search for By store orders" , TotalAmount,length)        
 #     print "Data:%s"%Data
 #     print "json:%s"%TotalAmount    
     sql=("select * from iPmsBiz.`Order` where ownerId=%s;")%storeid
@@ -54,12 +53,12 @@ def All_Store(url,storeid):
 #     conn.close()
     
     if TotalAmount==All_Store_Total:
-        print "Search for all store orders is Pass."
+        print "Search for By store orders is Pass.Date:%s"%today
         for i in All_Store_Total_Data:
             name=i['MainLiaisonName']    
             return name,True
     else:
-        print "Search for all store orders is Failed."
+        print "Search for By store orders is Failed.Json:%s,Data:%s,Date:%s"%(TotalAmount,All_Store_Total,today)
         for i in All_Store_Total_Data:
             name=i['MainLiaisonName']    
             return name,False
