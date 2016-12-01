@@ -1,4 +1,4 @@
-from Common.TestFuntion import *
+from Common.RoomType import *
 
 class UseTest():
     def __init__(self, name):
@@ -21,22 +21,12 @@ class UseTest():
         if (result != True):
             return result
         
-
-
-
     def CleanUp(self):
         print "Test End"
 
 
-
-
 if __name__ == "__main__":
-    #########
-    # Unit tests
-    #########
-    #testName = 'TCUI_USE_01'
     test = UseTest('TCS_001')
-    #logging.info("Executing %s", testName)
-    
-
     test.Test()
+    
+    
