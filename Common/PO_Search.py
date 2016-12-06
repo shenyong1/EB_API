@@ -5,6 +5,7 @@ from operator import index
 
 
 
+
 def CommonMoudle(name,TotalAmount,length):
     if TotalAmount>=10: 
         if length==10:
@@ -19,9 +20,6 @@ def CommonMoudle(name,TotalAmount,length):
 
 # def Name(url,storeid,name=None,iphone=None,orgId=None,roomTypeId=None,order=None,status=None,dateTimeType=None,queryDateTimeBegin=None,queryDateTimeEnd=None):
 def Name(**self):
-#     parser={}.fromkeys(['name','mobile'])
-#     print parser['name']
-
     parser={'CustomerName':"&CustomerName=%s"%self['name'],'mobile':"&mobile=%s"%self['iphone']}
 
     list=[]
@@ -35,8 +33,7 @@ def Name(**self):
     print k4
     parTmp=""
     for index,val in enumerate(k4):
-        print k4[index]+"ssss"
-        parTmp=parTmp+k4[index]
+        parTmp=parTmp+val
         
     newurl=self['url']+parTmp
     print newurl  
@@ -47,8 +44,26 @@ def Name(**self):
     length=len(All_Name_data['data']['Data'])
     CommonMoudle("Search for By Name orders" , TotalAmount,length)
     
-    SQL_parser={'MainliaisonName':"MainliaisonName='%s'"%self['name'],'MainliaisonMobile':"and MainliaisonMobile='%s'"%self['iphone']}             
-    sql=("select * from iPmsBiz.`Order` where ownerId=%s and MainliaisonName='%s' and MainliaisonMobile='%s';")%(self['storeid'],self['name'],self['iphone'])
+    SQL_parser={'MainliaisonName':" and MainliaisonName='%s'"%self['name'],'MainliaisonMobile':" and MainliaisonMobile='%s'"%self['iphone']}   
+
+    SQL_list=[]
+    for key in SQL_parser:
+        s2=SQL_parser[key]
+        s3=s2[-3:]
+        print s3
+        if s3!="None":
+            SQL_list.append(s2)
+    s4=SQL_list[0:]
+    print s4
+    sql_parTmp=""
+    for index,val in enumerate(s4):
+        sql_parTmp=sql_parTmp+val
+    print sql_parTmp+"1111"
+    
+    old_sql="select * from iPmsBiz.`Order` where ownerId='%s'"%self['storeid']
+    sql= old_sql + sql_parTmp
+          
+#     sql=("select * from iPmsBiz.`Order` where ownerId=%s and MainliaisonName='%s' and MainliaisonMobile='%s';")%(self['storeid'],self['name'],self['iphone'])
     print sql
     curs = conn.cursor()
     All_Name_Total=curs.execute(sql)
@@ -56,12 +71,17 @@ def Name(**self):
 #     print "data:%s"%All_Name_Total
 
     conn.close()
+    print TotalAmount
+    print All_Name_Total
     
     if TotalAmount==All_Name_Total:
         print "Search for By Name orders Amount is Right. Date:%s"%today
         for i in All_Name_Total_Data:
+            print i['MainLiaisonName']
+            name=self['name']
             MainLiaisonName=i['MainLiaisonName']
-            if MainLiaisonName==self['name']:
+            if MainLiaisonName==name:
+                #bijiao type buyizhi
                 print "Search for By Name's %s orders is Pass. Date:%s"%(MainLiaisonName,today) 
                 return True
             else:
@@ -121,6 +141,6 @@ def All_Store(**self):
 if __name__ == "__main__":
     Order_Detail=All_Store(storeid=Headers['ownerid'],url=PO_Search_url)
 
-    Name(url=PO_Search_url, storeid=Headers['ownerid'],iphone="18017249012",name=Order_Detail['name'])
+    Name(url=PO_Search_url, storeid=Headers['ownerid'],iphone="18017249012",name="wangsheng")
     
     
