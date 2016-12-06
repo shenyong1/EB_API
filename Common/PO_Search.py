@@ -1,6 +1,7 @@
 from Config.EB_API_Config import *
 from nose.config import flag
 from _mysql import NULL
+from operator import index
 
 
 
@@ -18,22 +19,11 @@ def CommonMoudle(name,TotalAmount,length):
 
 # def Name(url,storeid,name=None,iphone=None,orgId=None,roomTypeId=None,order=None,status=None,dateTimeType=None,queryDateTimeBegin=None,queryDateTimeEnd=None):
 def Name(**self):
-#     alist=[]
-#     for key in self:
-#         s1=self[key]
-#         if s1!='':
-#             alist.append(s1)
-#     s2=alist[0:]
-#     print s2
-            
-    
+#     parser={}.fromkeys(['name','mobile'])
+#     print parser['name']
 
-#     CustomerName="&CustomerName=%s"%name
-    mobile="&mobile=%s"%self['iphone']
-#     otaOrderId="&otaOrderId=%s"%self['order']
-#     statusKey="&statusKey=%s"%self['status']
     parser={'CustomerName':"&CustomerName=%s"%self['name'],'mobile':"&mobile=%s"%self['iphone']}
-    SQL_parser={'MainliaisonName':"MainliaisonName='%s'"%self['name'],'MainliaisonMobile':"and MainliaisonMobile='%s'"%self['iphone']}
+
     list=[]
     for key in parser:
         k2=parser[key]
@@ -43,37 +33,23 @@ def Name(**self):
             list.append(k2)
     k4=list[0:]
     print k4
-    if len(k4)==1:
-        newurl=self['url']+k4[0]
-        print newurl
-    if len(k4)==2:
-        newurl=self['url']+k4[0]+k4[1]
-        print newurl
-    if len(k4)==3:
-        newurl=self['url']+k4[0]+k4[1]+k4[2]
-        print newurl
-    if len(k4)==4:
-        newurl=self['url']+k4[0]+k4[1]+k4[2]+k4[3]
-        print newurl
-    if len(k4)==5:
-        newurl=self['url']+k4[0]+k4[1]+k4[2]+k4[3]+k4[4]
-        print newurl
-    if len(k4)==6:
-        newurl=self['url']+k4[0]+k4[1]+k4[2]+k4[3]+k4[4]+k4[5]
-        print newurl
-    if len(k4)==7:
-        newurl=self['url']+k4[0]+k4[1]+k4[2]+k4[3]+k4[4]+k4[5]+k4[6]
-        print newurl
+    parTmp=""
+    for index,val in enumerate(k4):
+        print k4[index]+"ssss"
+        parTmp=parTmp+k4[index]
         
-
+    newurl=self['url']+parTmp
+    print newurl  
+     
     r = requests.request('GET', newurl, headers=Headers)
     All_Name_data = json.loads(r.text)
     TotalAmount=All_Name_data['data']['TotalCount']
     length=len(All_Name_data['data']['Data'])
     CommonMoudle("Search for By Name orders" , TotalAmount,length)
     
-             
-    sql=("select * from iPmsBiz.`Order` where ownerId=%s and MainliaisonName='%s';")%(self['storeid'],self['name'])
+    SQL_parser={'MainliaisonName':"MainliaisonName='%s'"%self['name'],'MainliaisonMobile':"and MainliaisonMobile='%s'"%self['iphone']}             
+    sql=("select * from iPmsBiz.`Order` where ownerId=%s and MainliaisonName='%s' and MainliaisonMobile='%s';")%(self['storeid'],self['name'],self['iphone'])
+    print sql
     curs = conn.cursor()
     All_Name_Total=curs.execute(sql)
     All_Name_Total_Data=curs.fetchall()
@@ -123,9 +99,10 @@ def All_Store(**self):
     if TotalAmount==All_Store_Total:
         print "Search for By All Store orders is Pass.Date:%s"%today
         for i in All_Store_Total_Data:
-            verify(value=i['MainLiaisonName'])  
-            verify(value=i['MainLiaisonMobile'])
-            q={'name':verify['Newvalue'],'iphone':verify['Newvalue'],'result':True}
+            name=verify(value=i['MainLiaisonName'])  
+            iphone=verify(value=i['MainLiaisonMobile'])
+            print name,iphone
+            q={'name':name['Newvalue'],'iphone':iphone['Newvalue'],'result':True}
             print dict(q)
             return dict(q)
     else:
@@ -144,6 +121,6 @@ def All_Store(**self):
 if __name__ == "__main__":
     Order_Detail=All_Store(storeid=Headers['ownerid'],url=PO_Search_url)
 
-    Name(url=PO_Search_url, storeid=Headers['ownerid'],name=Order_Detail['name'],iphone=Order_Detail['iphone'])
+    Name(url=PO_Search_url, storeid=Headers['ownerid'],iphone="18017249012",name=Order_Detail['name'])
     
     
