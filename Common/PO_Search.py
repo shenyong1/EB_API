@@ -1,9 +1,5 @@
 from Config.EB_API_Config import *
 from nose.config import flag
-from _mysql import NULL
-from operator import index
-
-
 
 
 def CommonMoudle(name,TotalAmount,length):
@@ -32,8 +28,10 @@ def Name(**self):
     k4=list[0:]
     print k4
     parTmp=""
-    for index,val in enumerate(k4):
-        parTmp=parTmp+val
+#     for index,val in enumerate(k4):
+#         parTmp=parTmp+val
+    for item in k4:
+        parTmp=parTmp+item
         
     newurl=self['url']+parTmp
     print newurl  
@@ -49,16 +47,16 @@ def Name(**self):
     SQL_list=[]
     for key in SQL_parser:
         s2=SQL_parser[key]
-        s3=s2[-3:]
+        s3=s2[-6:]
         print s3
-        if s3!="None":
+        if s3!="'None'":
             SQL_list.append(s2)
     s4=SQL_list[0:]
     print s4
     sql_parTmp=""
-    for index,val in enumerate(s4):
-        sql_parTmp=sql_parTmp+val
-    print sql_parTmp+"1111"
+    for item in s4:
+        sql_parTmp=sql_parTmp+item
+    print sql_parTmp
     
     old_sql="select * from iPmsBiz.`Order` where ownerId='%s'"%self['storeid']
     sql= old_sql + sql_parTmp
