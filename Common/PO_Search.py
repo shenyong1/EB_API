@@ -32,11 +32,72 @@ def Time(**self):
         self['roomTypeId']=RoomTypeName(self['roomTypeId'])
      
         
-    parser{'roomTypeId':"&roomTypeId=%s"%self['roomTypeId'],
-           'dateTimeType':"&dateTimeType=%s"self['dateTimeType'],
-           'queryDateTimeBegin':"&queryDateTimeBegin=%s"self['queryDateTimeBegin'],
-           'queryDateTimeEnd':"&queryDateTimeEnd=%s"self['queryDateTimeEnd']        
-           }
+    parser={'roomTypeId':"&roomTypeId=%s"%self['roomTypeId'],
+           'dateTimeType':"&dateTimeType=%s"%self['dateTimeType'],
+           'queryDateTimeBegin':"&queryDateTimeBegin=%s"%self['queryDateTimeBegin'],
+           'queryDateTimeEnd':"&queryDateTimeEnd=%s"%self['queryDateTimeEnd']}
+    
+    list=[]
+    for key in parser:
+        k2=parser[key]
+        k3=k2[-4:]
+        print k3
+        if k3!="None":
+            list.append(k2)
+    k4=list[0:]
+    print k4
+    parTmp=""
+    for item in k4:
+        parTmp=parTmp+item
+        
+    newurl=self['url']+parTmp
+    print newurl
+    
+    r = requests.request('GET', newurl, headers=Headers)
+    All_Name_data = json.loads(r.text)
+    TotalAmount=All_Name_data['data']['TotalCount']
+    length=len(All_Name_data['data']['Data'])
+    CommonMoudle("Search for Orders" , TotalAmount,length)  
+    
+    SQL_parser={'roomTypeId':" and PhysicalRoomTypeId='%s'"%self['roomTypeId']}   
+
+    SQL_list=[]
+    for key in SQL_parser:
+        s2=SQL_parser[key]
+        s3=s2[-6:]
+        print s3
+        if s3!="'None'":
+            SQL_list.append(s2)
+    s4=SQL_list[0:]
+    print s4
+    sql_parTmp=""
+    for item in s4:
+        sql_parTmp=sql_parTmp+item
+    print sql_parTmp
+    
+    old_sql="select * from iPmsBiz.`Occupation` where ownerId='%s'"%self['storeid']
+    
+    if self['dateTimeType']==1:
+        old_sql="select * from iPmsBiz.`Occupation` where ownerId='%s' and EstimatedDepartureTime between '%s' and '%s'"%(self['storeid'],self['queryDateTimeBegin'],self['queryDateTimeEnd'])
+    else:
+        old_sql="select * from iPmsBiz.`Occupation` where ownerId='%s' and EstimatedArriveTime between '%s' and '%s'"%(self['storeid'],self['queryDateTimeBegin'],self['queryDateTimeEnd'])
+        
+        
+    sql= old_sql + sql_parTmp
+    print sql
+    curs = conn.cursor()
+    All_Name_Total=curs.execute(sql)
+    All_Name_Total_Data=curs.fetchall()
+#     print "data:%s"%All_Name_Total
+
+
+    print TotalAmount
+    print All_Name_Total
+    
+    if TotalAmount==All_Name_Total:
+        print "Search for By orders Amount is Right. Date:%s"%today  
+    else:
+        print "Search for By orders Amount is Error. Date:%s"%today
     
 
 
@@ -63,8 +124,6 @@ def Name(**self):
     k4=list[0:]
     print k4
     parTmp=""
-#     for index,val in enumerate(k4):
-#         parTmp=parTmp+val
     for item in k4:
         parTmp=parTmp+item
         
@@ -80,7 +139,6 @@ def Name(**self):
     SQL_parser={'MainliaisonName':" and MainliaisonName='%s'"%self['name'],
                 'MainliaisonMobile':" and MainliaisonMobile='%s'"%self['iphone'],
                 'OrgId':" and OrgId='%s'"%self['OrgId'],
-                'roomTypeId':" and PhysicalRoomTypeId='%s'"%self['roomTypeId'],
                 'OrderStatus':" and OrderStatus='%s'"%self['status'],
                 'OrderId':" and OrderId='%s'"%self['order']}   
 
@@ -99,44 +157,21 @@ def Name(**self):
     print sql_parTmp
     
     old_sql="select * from iPmsBiz.`Order` where ownerId='%s'"%self['storeid']
-#     roomTypeId_sql="select * from iPmsBiz.`Occupation` where ownerId='%s'"%self['storeid']  
     sql= old_sql + sql_parTmp
           
-#     sql=("select * from iPmsBiz.`Order` where ownerId=%s and MainliaisonName='%s' and MainliaisonMobile='%s';")%(self['storeid'],self['name'],self['iphone'])
     print sql
     curs = conn.cursor()
     All_Name_Total=curs.execute(sql)
     All_Name_Total_Data=curs.fetchall()
-#     print "data:%s"%All_Name_Total
 
-    conn.close()
+#     conn.close()
     print TotalAmount
     print All_Name_Total
     
     if TotalAmount==All_Name_Total:
-        print "Search for By Name orders Amount is Right. Date:%s"%today
-        for i in All_Name_Total_Data:
-            print i
-            name=lower(self['name'])
-            iphone=lower(self['iphone'])
-            status=lower(self['status'])
-            order=self['order']
-            
-            MainLiaisonName=lower(i['MainLiaisonName'])
-            MainliaisonMobile=lower(i['MainLiaisonMobile'])
-            OrderStatus=lower(i['OrderStatus'])
-            OrderId=i['OrderId']
-            
-
-            if MainLiaisonName==name and iphone==MainliaisonMobile and status==OrderStatus and order==OrderId:
-                #bijiao type buyizhi
-                print "Search for By Name's %s and Phone's %s orders is Pass. Date:%s"%(MainLiaisonName,MainliaisonMobile,today) 
-                return True
-            else:
-                print "Search for By Name's %s and Phone's %s orders is Failed. Json:%s,Data:%s,Date:%s"%(MainLiaisonName,MainliaisonMobile,TotalAmount,All_Name_Total,today)  
-                return False
+        print "Search for By orders Amount is Right. Date:%s"%today
     else:
-        print "Search for By Name orders Amount is Error. Date:%s"%today
+        print "Search for By orders Amount is Error. Date:%s"%today
 
         
 def verify(value):
@@ -167,19 +202,38 @@ def All_Store(**self):
     if TotalAmount==All_Store_Total:
         print "Search for By All Store orders is Pass.Date:%s"%today
         for i in All_Store_Total_Data:
+            print i
             name=verify(value=i['MainLiaisonName'])  
             iphone=verify(value=i['MainLiaisonMobile'])
-            print name,iphone
-            q={'name':name['Newvalue'],'iphone':iphone['Newvalue'],'result':True}
+            OrgId=verify(value=i['OrgId'])
+            order=verify(value=i['OrderId'])
+            status=verify(value=i['OrderStatus'])
+            
+            print name,iphone,OrgId,order,status
+            q={'name':name['Newvalue'],
+               'iphone':iphone['Newvalue'],
+               'OrgId':OrgId['Newvalue'],
+               'order':order['Newvalue'],
+               'status':status['Newvalue'],
+               'result':True}
             print dict(q)
             return dict(q)
     else:
         print "Search for By All Store orders is Failed.Json:%s,Data:%s,Date:%s"%(TotalAmount,All_Store_Total,today)
         for i in All_Store_Total_Data:
+            print i
             name=verify(value=i['MainLiaisonName'])  
             iphone=verify(value=i['MainLiaisonMobile'])
-            print name,iphone
-            q={'name':name['Newvalue'],'iphone':iphone['Newvalue'],'result':False}
+            OrgId=verify(value=i['OrgId'])
+            order=verify(value=i['OrderId'])
+            status=verify(value=i['OrderStatus'])
+            
+            q={'name':name['Newvalue'],
+               'iphone':iphone['Newvalue'],
+               'OrgId':OrgId['Newvalue'],
+               'order':order['Newvalue'],
+               'status':status['Newvalue'],
+               'result':False}
             print dict(q)
             return dict(q)
     
@@ -189,6 +243,19 @@ def All_Store(**self):
 if __name__ == "__main__":
     Order_Detail=All_Store(storeid=Headers['ownerid'],url=PO_Search_url)
 
-    Name(url=PO_Search_url, storeid=Headers['ownerid'],iphone="18017249012",name="WangSheng",OrgId='None',order='None',status='None')
+    Name(url=PO_Search_url, 
+         storeid=Headers['ownerid'],
+         iphone="None",
+         name='房客',
+         OrgId='None',
+         order='None',
+         status='None')
+    Time(url=PO_Search_url,
+         storeid=Headers['ownerid'],
+         roomTypeId='None',
+         dateTimeType='0',
+         queryDateTimeBegin='2016-12-8',
+         queryDateTimeEnd='2016-12-9'
+         )
     
     

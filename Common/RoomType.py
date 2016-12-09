@@ -7,22 +7,23 @@ def CommonMoudle(Path,data):
     else:
         return False
 
-def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
+#def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
+def Modify_RoomType(**self):
         payload = {
-                    "Id": RoomTypeId,
-                    "RoomTypeName": RoomTypeName,
-                    "weekdayPrice": weekdayPrice,
+                    "Id": self['RoomTypeId'],
+                    "RoomTypeName": self['RoomTypeName'],
+                    "weekdayPrice": self['weekdayPrice'],
                     "IsActive": True,
                     "Rooms": [
             {
-                "Id":RoomID,
-                "RoomNumber": RoomNumber1,
-                "IsActive": IsActive1
+                "Id":self['RoomID'],
+                "RoomNumber": self['RoomNumber1'],
+                "IsActive": self['IsActive1']
             }
         ]
         }
                    
-        r = requests.request('PUT', url, headers=Headers ,data=json.dumps(payload))
+        r = requests.request('PUT', self['url'], headers=Headers ,data=json.dumps(payload))
 
         Modify_RoomType_data = json.loads(r.text)
         businessCode=CommonMoudle(Modify_RoomType_data['businessCode'] ,200)
@@ -58,21 +59,24 @@ def Del_RoomType(url,RoomTypeID):
         print "Del_RoomType is Failed. Date:%s"%today
         return False        
 
-def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
+def Add_RoomType(**self):
         payload = {
-                   "RoomTypeName": RoomTypeName,
-                   "weekdayPrice": weekdayPrice,
+                   "RoomTypeName": self['RoomTypeName'],
+                   "weekdayPrice": self['weekdayPrice'],
                    "IsActive": True,
                    "Rooms": [
                     {
-                    "RoomNumber": RoomNumber,
+                    "RoomNumber": self['RoomNumber'],
                     "IsActive": True
                     }
                              ]
 
 
                              }
-        r = requests.request('POST', url, headers=Headers ,data=json.dumps(payload))
+        r = requests.request('POST',
+                              self['url'], 
+                              headers=Headers ,
+                              data=json.dumps(payload))
 
         Add_RoomType_data = json.loads(r.text)
         businessCode=CommonMoudle(Add_RoomType_data['businessCode'] ,200)
@@ -85,7 +89,14 @@ def Add_RoomType(url,RoomTypeName,RoomNumber,weekdayPrice=300):
             RoomNumber=Add_RoomType_data['data']['Rooms'][0]['RoomNumber']
             RoomTypeId=Add_RoomType_data['data']['Rooms'][0]['RoomTypeId']
             RoomID=Add_RoomType_data['data']['Rooms'][0]['Id']
-            return (RoomTypeName,RoomNumber,RoomTypeId,RoomID,True)
+            Add_RoomType={'RoomTypeName':RoomTypeName,
+               'RoomNumber':RoomNumber,
+               'RoomTypeId':RoomTypeId,
+               'RoomID':RoomID,
+               'Result':True}
+            print Add_RoomType['RoomTypeName']
+            return dict(Add_RoomType)
+
         else:
             print "Add_RoomType is Failed. Message:%s Date:%s"%(Message,today)
             return False
@@ -132,38 +143,50 @@ def Search_RoomType(url,RoomTypeName=None,RoomNumber=None,RoomTypeId=None):
         print "Data:RoomType TotalAmount is Failed"
         return False
         
-def RoomType_Status(url,RoomTypeId=None):
-    if RoomTypeId==None:
+def RoomType_Status(**self):
+    if self['RoomTypeId']==None:
         print "RooMTypeID is None Date:%s"%today
         return False
-    r = requests.request('GET', url+RoomTypeId, headers=Headers)
-    RoomType_Status_data = json.loads(r.text)
-
-    Status=CommonMoudle(RoomType_Status_data['data'] ,True)
-    
-    if Status==True:
-        print "RoomType_Status is True. Date:%s"%today
-        return True
-    elif Status==False:
-        print "RoomType_Status is False. Date:%s"%today
-        return True
     else:
-        print "RoomType_Status is failed. Date:%s"%today
-        return False
+        r = requests.request('GET', self['url']+self['RoomTypeId'], headers=Headers)
+        RoomType_Status_data = json.loads(r.text)
+
+        Status=CommonMoudle(RoomType_Status_data['data'] ,True)
+        if Status==True:
+            print "RoomType_Status is True. Date:%s"%today
+            return True
+        elif Status==False:
+            print "RoomType_Status is False. Date:%s"%today
+            return True
+        else:
+            print "RoomType_Status is failed. Date:%s"%today
+            return False
         
                                    
 if __name__ == "__main__":
-    RoomID=Add_RoomType(RoomType_API_url,Room['RoomTypeName'],Room['RoomNumber'])
+    Add_RoomType=Add_RoomType(url=RoomType_API_url,RoomTypeName=Room['RoomTypeName'],RoomNumber=Room['RoomNumber'],weekdayPrice='300')
+    print Add_RoomType['RoomTypeId']
+
+     
+    RoomType_Status(url=RoomType_Status_url,
+                    RoomTypeId=Add_RoomType['RoomTypeId'])
+
+#def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
     
-    RoomType_Status(RoomType_Status_url,RoomID[2])
-    
-    Modify_RoomType(RoomType_API_url,Room['NewRoomTypeName'],RoomID[2],999,RoomID[1],RoomID[3],False)
-      
-    Del_RoomType(RoomType_API_url, RoomID[2]) 
-        
-    RoomType_Status(RoomType_Status_url,RoomID[2])
-    
-    Search_RoomType(Search_RoomType_url,RoomID[0],RoomID[1],RoomID[2])
+#     Modify_RoomType(
+#                     RoomType_API_url,
+#                     Room['NewRoomTypeName'],
+#                     Add_RoomType['RoomTypeId'],
+#                     999,
+#                     Add_RoomType['RoomNumber'],
+#                     Add_RoomType['RoomID'],
+#                     False)
+#       
+#     Del_RoomType(RoomType_API_url, Add_RoomType['RoomTypeId']) 
+#         
+#     RoomType_Status(RoomType_Status_url,Add_RoomType['RoomTypeId'])
+#     
+#     Search_RoomType(Search_RoomType_url,Add_RoomType['RoomTypeName'],Add_RoomType['RoomNumber'],Add_RoomType['RoomTypeId'])
 
 
 

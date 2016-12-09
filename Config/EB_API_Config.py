@@ -8,9 +8,13 @@ import MySQLdb
 import MySQLdb.cursors
 from Common.PO_Search import *
 
-Room ={'RoomTypeName':random.getrandbits(20),'RoomNumber':random.getrandbits(20),'NewRoomTypeName':random.getrandbits(30)}
+Room ={'RoomTypeName':random.getrandbits(20),
+       'RoomNumber':random.getrandbits(20),
+       'NewRoomTypeName':random.getrandbits(30)}
 
-Headers={'Content-Type':'application/json','ownerid':'434265567985665','orgid':'434265567985667'}
+Headers={'Content-Type':'application/json',
+         'ownerid':'434265567985665',
+         'orgid':'434265567985667'}
 
 conn= MySQLdb.connect(
         host='192.168.9.24',
