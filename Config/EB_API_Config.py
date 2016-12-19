@@ -36,7 +36,12 @@ conn1= MySQLdb.connect(
         cursorclass = MySQLdb.cursors.DictCursor
         )
 
-today = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+FileName = time.strftime('%Y%m%d_%H:%M:%S',time.localtime(time.time()))
+today = datetime.date.today()
+yesterday= today - datetime.timedelta(days=1)
+tomorrow=today+datetime.timedelta(days=1)
+
+#Server='http://192.168.32.179'
 
 Server='http://192.168.32.179'
 

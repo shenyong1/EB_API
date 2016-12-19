@@ -8,18 +8,38 @@ class UseTest():
         print "Test Start"
 
 
+
     def Test(self):
-        RoomID=Add_RoomType(RoomType_API_url,Room['RoomTypeName'],Room['RoomNumber'])
-        result = RoomID[4]
-        if (result != True):
-            return result
+        RoomTypeName=GetNumber(8)
+        RoomNumber=GetNumber(10)
+        NewRoomTypeName=GetNumber(9)
+  
+        RoomType=Add_RoomType(url=RoomType_API_url,RoomTypeName=RoomTypeName,RoomNumber=RoomNumber,weekdayPrice='300')
+
+        Result = RoomType['Result']
+        if (Result != True):
+            return Result
         
-        Add_RoomType(RoomType_API_url,RoomID[0],RoomID[1])
+        Status=RoomType_Status(url=RoomType_Status_url,
+                        RoomTypeId=RoomType['RoomTypeId'])
 
         
-        result = Add_RoomType(RoomType_API_url,RoomID[0],Room['NewRoomTypeName'])
-        if (result != True):
-            return result
+        Result = Status['Result']
+        if (Result != True):
+            return Result
+        
+        Modify=Modify_RoomType(url=RoomType_API_url,
+                        RoomTypeName=Room['NewRoomTypeName'],
+                        RoomTypeId=RoomType['RoomTypeId'],
+                        weekdayPrice=999,
+                        RoomNumber=RoomType['RoomNumber'],
+                        RoomID=RoomType['RoomID'],
+                        IsActive=False)
+        
+        Result = Modify['Result']
+        if (Result != True):
+            return Result
+        
         
     def CleanUp(self):
         print "Test End"

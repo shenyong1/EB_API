@@ -250,12 +250,13 @@ if __name__ == "__main__":
          OrgId='None',
          order='None',
          status='None')
+    
     Time(url=PO_Search_url,
          storeid=Headers['ownerid'],
          roomTypeId='None',
          dateTimeType='0',
-         queryDateTimeBegin='2016-12-8',
-         queryDateTimeEnd='2016-12-9'
+         queryDateTimeBegin='2016-12-12',
+         queryDateTimeEnd='2016-12-13'
          )
     
     
