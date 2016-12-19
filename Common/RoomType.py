@@ -11,12 +11,7 @@ from openpyxl import Workbook
 from openpyxl.writer.excel import ExcelWriter
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
-from openpyxl.styles import PatternFill,Border,Side,Alignment,Protection,Font
-from openpyxl.styles import colors
-from openpyxl.styles import Font, Color
-from openpyxl.styles import colors
-from email import Message
-
+from openpyxl.styles import *
 
 
 def GetNumber(length=8,chars=string.letters+string.digits):
@@ -62,7 +57,8 @@ def Modify_RoomType(**self):
                      businessCode=Modify_RoomType_data['businessCode'],
                      resultCode=Modify_RoomType_data['resultCode'],
                      Message=Modify_RoomType_data['Message'],
-                     result="Pass")
+                     result="Pass",
+                     CaseNumber=self['CaseNumber'])
                 Modify_RoomType={'Result':True}
                 return Modify_RoomType
             else:
@@ -71,7 +67,8 @@ def Modify_RoomType(**self):
                      businessCode=Modify_RoomType_data['businessCode'],
                      resultCode=Modify_RoomType_data['resultCode'],
                      Message=Modify_RoomType_data['Message'],
-                     result="Failed")
+                     result="Failed",
+                     CaseNumber=self['CaseNumber'])
                 Modify_RoomType={'Result':False}
                 return Modify_RoomType
         else:
@@ -93,7 +90,8 @@ def Del_RoomType(**self):
              businessCode=Del_RoomType_data['businessCode'],
              resultCode=Del_RoomType_data['resultCode'],
              Message=Del_RoomType_data['Message'],
-             result="Pass")
+             result="Pass",
+             CaseNumber=self['CaseNumber'])
         Del_RoomType={'Result':True}
         return Del_RoomType
     else:
@@ -102,7 +100,8 @@ def Del_RoomType(**self):
              businessCode=Del_RoomType_data['businessCode'],
              resultCode=Del_RoomType_data['resultCode'],
              Message=Del_RoomType_data['Message'],
-             result="Failed")
+             result="Failed",
+             CaseNumber=self['CaseNumber'])
         Del_RoomType={'Result':False}
         return Del_RoomType   
 
@@ -137,7 +136,12 @@ def Add_RoomType(**self):
             RoomTypeId=Add_RoomType_data['data']['Rooms'][0]['RoomTypeId']
             RoomID=Add_RoomType_data['data']['Rooms'][0]['Id']
             
-            Save(name="Add_RoomType",businessCode=Add_RoomType_data['businessCode'],resultCode=Add_RoomType_data['resultCode'],Message=Add_RoomType_data['Message'],result="Pass")
+            Save(name="Add_RoomType",
+                 businessCode=Add_RoomType_data['businessCode'],
+                 resultCode=Add_RoomType_data['resultCode'],
+                 Message=Add_RoomType_data['Message'],
+                 result="Pass",
+                 CaseNumber=self['CaseNumber'])
             RoomType={'RoomTypeName':RoomTypeName,
                'RoomNumber':RoomNumber,
                'RoomTypeId':RoomTypeId,
@@ -147,7 +151,12 @@ def Add_RoomType(**self):
 
         else:
             print "Add_RoomType is Failed. Message:%s Date:%s"%(Message,today)
-            Save(name="Add_RoomType",businessCode=Add_RoomType_data['businessCode'],resultCode=Add_RoomType_data['resultCode'],Message=Add_RoomType_data['Message'],result="Failed")
+            Save(name="Add_RoomType",
+                 businessCode=Add_RoomType_data['businessCode'],
+                 resultCode=Add_RoomType_data['resultCode'],
+                 Message=Add_RoomType_data['Message'],
+                 result="Failed",
+                 CaseNumber=self['CaseNumber'])
             RoomType={'Result':False}
             return RoomType
 
@@ -164,7 +173,8 @@ def Search_RoomType(**self):
                  businessCode=All_RoomType_data['businessCode'],
                  resultCode=All_RoomType_data['resultCode'],
                  Message='',
-                 result="Pass")
+                 result="Pass",
+                 CaseNumber=self['CaseNumber'])
             Search_RoomType={'Result':True}
             return Search_RoomType
         else:
@@ -173,7 +183,8 @@ def Search_RoomType(**self):
                  businessCode=All_RoomType_data['businessCode'],
                  resultCode=All_RoomType_data['resultCode'],
                  Message='',
-                 result="Failed")
+                 result="Failed",
+                 CaseNumber=self['CaseNumber'])
             Search_RoomType={'Result':False}
             return Search_RoomType                           
 
@@ -189,7 +200,8 @@ def Search_RoomType(**self):
                              businessCode=All_RoomType_data['businessCode'],
                              resultCode=All_RoomType_data['resultCode'],
                              Message='',
-                             result="Pass")
+                             result="Pass",
+                             CaseNumber=self['CaseNumber'])
                         flag=False
                     else:
                         print "Add_RoomType is Failed In Search_RoomType!. Date:%s"%today 
@@ -197,7 +209,8 @@ def Search_RoomType(**self):
                              businessCode=All_RoomType_data['businessCode'],
                              resultCode=All_RoomType_data['resultCode'],
                              Message='',
-                             result="Failed")
+                             result="Failed",
+                             CaseNumber=self['CaseNumber'])
                         continue                 
     if flag:
         print "Add_RoomType is Failed In Search_RoomType!!. Date:%s"%today
@@ -205,7 +218,8 @@ def Search_RoomType(**self):
         businessCode=All_RoomType_data['businessCode'],
         resultCode=All_RoomType_data['resultCode'],
         Message='',
-        result="Failed")
+        result="Failed",
+        CaseNumber=self['CaseNumber'])
         Search_RoomType={'Result':False}
         return Search_RoomType
         
@@ -242,7 +256,8 @@ def RoomType_Status(**self):
                  businessCode=RoomType_Status_data['businessCode'],
                  resultCode=RoomType_Status_data['resultCode'],
                  Message=RoomType_Status_data['data'],                 
-                 result="Pass")
+                 result="Pass",
+                 CaseNumber=self['CaseNumber'])
             RoomType_Status={'Result':True}
             return RoomType_Status
         elif Status==False:
@@ -251,12 +266,19 @@ def RoomType_Status(**self):
                  businessCode=RoomType_Status_data['businessCode'],
                  resultCode=RoomType_Status_data['resultCode'],
                  Message=RoomType_Status_data['data'],                 
-                 result="Failed")
+                 result="Failed",
+                 CaseNumber=self['CaseNumber']
+                 )
             RoomType_Status={'Result':True}
             return RoomType_Status
         else:
             print "RoomType_Status is failed. Date:%s"%today
-            Save(name="RoomType_Status",result="Failed")
+            Save(name="RoomType_Status",
+                 businessCode=RoomType_Status_data['businessCode'],
+                 resultCode=RoomType_Status_data['resultCode'],
+                 Message=RoomType_Status_data['data'],                 
+                 result="Failed",
+                 CaseNumber=self['CaseNumber'])
             RoomType_Status={'Result':False}
             return RoomType_Status
         
@@ -274,7 +296,8 @@ def Save(**self):
        'result':self['result'],
        'businessCode':self['businessCode'],
        'resultCode':self['resultCode'],
-       'Message':self['Message']}
+       'Message':self['Message'],
+       'CaseNumber':self['CaseNumber']}
     wb = Workbook()
     ws = wb.active
 
@@ -303,7 +326,7 @@ def Save(**self):
 #             print ws.cell('%s%s'%(col,i)).value
             
  
-    ws.append((FileName,D['name'],D['businessCode'],D['resultCode'],D['Message'],D['result']))
+    ws.append((D['CaseNumber'],FileName,D['name'],D['businessCode'],D['resultCode'],D['Message'],D['result']))
     wb.save('D:\EB_API\TestReport\TestReport.xlsx')
 
         
@@ -313,17 +336,22 @@ if __name__ == "__main__":
     RoomNumber=GetNumber(10)
     NewRoomTypeName=GetNumber(9)
     
-    RoomType=Add_RoomType(url=RoomType_API_url,RoomTypeName=RoomTypeName,RoomNumber=RoomNumber,weekdayPrice='300')
+    RoomType=Add_RoomType(CaseNumber='TCS_001',
+                          url=RoomType_API_url,
+                          RoomTypeName=RoomTypeName,
+                          RoomNumber=RoomNumber,
+                          weekdayPrice='300')
 
      
     RoomType_Status(url=RoomType_Status_url,
-                    RoomTypeId=RoomType['RoomTypeId'])
+                    RoomTypeId=RoomType['RoomTypeId'],
+                    CaseNumber='TCS_001')
 # 
 # #def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
 #     
-    Del_RoomType(url=RoomType_API_url, RoomTypeId=RoomType['RoomTypeId']) 
 
     Modify_RoomType(
+                    CaseNumber='TCS_001',
                     url=RoomType_API_url,
                     RoomTypeName=NewRoomTypeName,
                     RoomTypeId=RoomType['RoomTypeId'],
@@ -334,9 +362,15 @@ if __name__ == "__main__":
 #        
 #     Del_RoomType(url=RoomType_API_url, RoomTypeId=RoomType['RoomTypeId']) 
 #          
-    RoomType_Status(url=RoomType_Status_url,RoomTypeId=RoomType['RoomTypeId'])
+    RoomType_Status(CaseNumber='TCS_001',
+                    url=RoomType_Status_url,
+                    RoomTypeId=RoomType['RoomTypeId'])
 #      
-    Search_RoomType(url=Search_RoomType_url,RoomTypeName=RoomType['RoomTypeName'],RoomNumber=RoomType['RoomNumber'],RoomTypeId=RoomType['RoomTypeId'])
+    Search_RoomType(CaseNumber='TCS_001',
+                    url=Search_RoomType_url,
+                    RoomTypeName=RoomType['RoomTypeName'],
+                    RoomNumber=RoomType['RoomNumber'],
+                    RoomTypeId=RoomType['RoomTypeId'])
 
 
 

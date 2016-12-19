@@ -1,26 +1,31 @@
 from Common.RoomType import *
 
 class UseTest():
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, CaseNumber):
+        self.CaseNumber = CaseNumber
 
     def Setup(self):
         print "Test Start"
 
 
 
-    def Test(self):
+    def Test(self,CaseNumber):
         RoomTypeName=GetNumber(8)
         RoomNumber=GetNumber(10)
         NewRoomTypeName=GetNumber(9)
   
-        RoomType=Add_RoomType(url=RoomType_API_url,RoomTypeName=RoomTypeName,RoomNumber=RoomNumber,weekdayPrice='300')
+        RoomType=Add_RoomType(CaseNumber=self.CaseNumber,
+                              url=RoomType_API_url,
+                              RoomTypeName=RoomTypeName,
+                              RoomNumber=RoomNumber,
+                              weekdayPrice='300')
 
         Result = RoomType['Result']
         if (Result != True):
             return Result
         
-        Status=RoomType_Status(url=RoomType_Status_url,
+        Status=RoomType_Status(CaseNumber=self.CaseNumber,
+                               url=RoomType_Status_url,
                         RoomTypeId=RoomType['RoomTypeId'])
 
         
@@ -28,7 +33,8 @@ class UseTest():
         if (Result != True):
             return Result
         
-        Modify=Modify_RoomType(url=RoomType_API_url,
+        Modify=Modify_RoomType(CaseNumber=self.CaseNumber,
+                               url=RoomType_API_url,
                         RoomTypeName=Room['NewRoomTypeName'],
                         RoomTypeId=RoomType['RoomTypeId'],
                         weekdayPrice=999,
@@ -46,7 +52,7 @@ class UseTest():
 
 
 if __name__ == "__main__":
-    test = UseTest('TCS_001')
-    test.Test()
+    test = UseTest('TCS_002')
+    test.Test(CaseNumber='TCS_002')
     
     
