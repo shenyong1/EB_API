@@ -44,13 +44,14 @@ def Modify_RoomType(**self):
         Modify_RoomType_data = json.loads(r.text)
         businessCode=CommonMoudle(Modify_RoomType_data['businessCode'] ,200)
         resultCode=CommonMoudle(Modify_RoomType_data['resultCode'] ,200)
-        NewRoomTypeName=Modify_RoomType_data['data']['RoomTypeName']
-        NewIsActive=Modify_RoomType_data['data']['Rooms'][0]['IsActive']
-        weekdayPrice=Modify_RoomType_data['data']['weekdayPrice']        
-        RoomNumber=Modify_RoomType_data['data']['Rooms'][0]['RoomNumber']
-        RoomTypeId=Modify_RoomType_data['data']['Rooms'][0]['RoomTypeId'] 
+
          
         if businessCode & resultCode ==True:
+            NewRoomTypeName=Modify_RoomType_data['data']['RoomTypeName']
+            NewIsActive=Modify_RoomType_data['data']['Rooms'][0]['IsActive']
+            weekdayPrice=Modify_RoomType_data['data']['weekdayPrice']        
+            RoomNumber=Modify_RoomType_data['data']['Rooms'][0]['RoomNumber']
+            RoomTypeId=Modify_RoomType_data['data']['Rooms'][0]['RoomTypeId'] 
             if weekdayPrice==999 and NewRoomTypeName==str(self['RoomTypeName']) and NewIsActive==False:
                 print "Modify_RoomType is Pass. Date:%s"%today
                 Save(name="Modify_RoomType",
@@ -73,7 +74,13 @@ def Modify_RoomType(**self):
                 return Modify_RoomType
         else:
             print "Modify_RoomType is Failed. Date:%s"%today
-            Save(data=Modify_RoomType_data,name="Modify_RoomType",result="Failed")
+            Save(data=Modify_RoomType_data,
+                 name="Modify_RoomType",
+                 businessCode=Modify_RoomType_data['businessCode'],
+                 resultCode=Modify_RoomType_data['resultCode'],
+                 Message=Modify_RoomType_data['Message'],
+                 CaseNumber=self['CaseNumber'],
+                 result="Failed")
             Modify_RoomType={'Result':False}
             return Modify_RoomType         
 
