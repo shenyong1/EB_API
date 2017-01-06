@@ -11,60 +11,30 @@ class UseTest():
 
     def Test(self,CaseNumber):
         RoomTypeName=GetNumber(8)
+        RoomTypeName1=GetNumber(8)
+        RoomTypeName2=GetNumber(8)  
         RoomNumber=GetNumber(10)
+        RoomNumber1=GetNumber(10)
+        RoomNumber2=GetNumber(10)
+        RoomNumber3=GetNumber(10)
+        RoomNumber4=GetNumber(10)
         NewRoomTypeName=GetNumber(9)
   
-        RoomType=Add_RoomType(CaseNumber=self.CaseNumber,
-                              url=RoomType_API_url,
-                              RoomTypeName=RoomTypeName,
-                              RoomNumber=RoomNumber,
-                              weekdayPrice='300')
+        RoomType=BatchAdd_RoomType(CaseNumber=self.CaseNumber,
+                          url=Search_RoomType_url,
+                          RoomTypeName1=RoomTypeName1,
+                          OTARoomTypeName='Test',
+                          OTARoomTypeId='Z23582JSC',
+                          RoomNumber1_1=RoomNumber1,
+                          RoomNumber1_2=RoomNumber2,
+                          RoomTypeName2=RoomTypeName2,
+                          RoomNumber2_1=RoomNumber3,
+                          RoomNumber2_2=RoomNumber4,
+                          weekdayPrice='300')
         Result = RoomType['Result']
         if (Result != True):
             return Result
-        
-        Status=RoomType_Status(CaseNumber=self.CaseNumber,
-                               url=RoomType_Status_url,
-                        RoomTypeId=RoomType['RoomTypeId'])
-
-        Result = Status['Result']
-        if (Result != True):
-            return Result
-        
-        RoomType1=Add_RoomType(CaseNumber=self.CaseNumber,
-                              url=RoomType_API_url,
-                              RoomTypeName=RoomType['RoomTypeName'],
-                              RoomNumber=RoomType['RoomNumber'],
-                              weekdayPrice='300')
-        Result = RoomType1['Result']
-        if (Result != False):
-            return Result
-        
-        Del=Del_RoomType(CaseNumber=self.CaseNumber,
-                     url=RoomType_API_url, 
-                     RoomTypeId=RoomType['RoomTypeId'])
-         
-        Result = Del['Result']
-        if (Result != True):
-            return Result
-        
-        RoomType=Add_RoomType(CaseNumber=self.CaseNumber,
-                              url=RoomType_API_url,
-                              RoomTypeName=RoomType['RoomTypeName'],
-                              RoomNumber=RoomType['RoomNumber'],
-                              weekdayPrice='300')
-        Result = RoomType['Result']
-        if (Result != True):
-            return Result        
-                        
-        Serach=Search_RoomType(CaseNumber=self.CaseNumber,
-                               url=Search_RoomType_url,
-                               RoomTypeName=RoomType['RoomTypeName'],
-                               RoomNumber=RoomType['RoomNumber'],
-                               RoomTypeId=RoomType['RoomTypeId'])
-        Result = Serach['Result']
-        if (Result != True):
-            return Result        
+       
                 
     def CleanUp(self):
         print "Test End"

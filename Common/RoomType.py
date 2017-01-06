@@ -12,6 +12,7 @@ from openpyxl.writer.excel import ExcelWriter
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import *
+from _ast import Return
 
 
 def GetNumber(length=8,chars=string.letters+string.digits):
@@ -170,65 +171,24 @@ def Add_RoomType(**self):
 def Search_RoomType(**self):
     r = requests.request('GET', self['url'], headers=Headers)
     All_RoomType_data = json.loads(r.text)
-        
-    if  self['RoomTypeName'] is None and self['RoomNumber'] is None:
-        businessCode=CommonMoudle(All_RoomType_data['businessCode'] ,200)
-        resultCode=CommonMoudle(All_RoomType_data['resultCode'] ,200)
-        if businessCode==True and resultCode==True:
-            print "Search_RoomType is Pass. Date:%s"%today
-            Save(name="Search_All_RoomType",
-                 businessCode=All_RoomType_data['businessCode'],
-                 resultCode=All_RoomType_data['resultCode'],
-                 Message='',
-                 result="Pass",
-                 CaseNumber=self['CaseNumber'])
-            Search_RoomType={'Result':True}
-            return Search_RoomType
-        else:
-            print "Search_RoomType is Failed!!. Date:%s"%today
-            Save(name="Search_All_RoomType",
-                 businessCode=All_RoomType_data['businessCode'],
-                 resultCode=All_RoomType_data['resultCode'],
-                 Message='',
-                 result="Failed",
-                 CaseNumber=self['CaseNumber'])
-            Search_RoomType={'Result':False}
-            return Search_RoomType                           
+    
 
-    else:
-        flag=True        
-        for v in All_RoomType_data['data']:
-            i=v
-            if i['RoomTypeName']==self['RoomTypeName']:
-                for v in i['Rooms']:
-                    if v['RoomNumber']==self['RoomNumber']:
-                        print "Add_RoomType is Pass In Search_RoomType!. Date:%s"%today
-                        Save(name="Search_All_RoomType",
-                             businessCode=All_RoomType_data['businessCode'],
-                             resultCode=All_RoomType_data['resultCode'],
-                             Message='',
-                             result="Pass",
-                             CaseNumber=self['CaseNumber'])
-                        flag=False
-                    else:
-                        print "Add_RoomType is Failed In Search_RoomType!. Date:%s"%today 
-                        Save(name="Search_All_RoomType",
-                             businessCode=All_RoomType_data['businessCode'],
-                             resultCode=All_RoomType_data['resultCode'],
-                             Message='',
-                             result="Failed",
-                             CaseNumber=self['CaseNumber'])
-                        continue                 
-    if flag:
-        print "Add_RoomType is Failed In Search_RoomType!!. Date:%s"%today
-        Save(name="Search_All_RoomType",
-        businessCode=All_RoomType_data['businessCode'],
+    for v in All_RoomType_data['data']:
+        i=v
+        if i['RoomTypeName']==self['RoomTypeName']:
+            Message="Add_RoomType is Pass In Search_RoomType!. Date:%s"%today
+            Lastresult="Pass"
+            break        
+        else:
+            Message="Add_RoomType is Failed In Search_RoomType!. Date:%s"%today
+            Lastresult="Failed"
+    print Message
+    Save(name="Search_All_RoomType",
+         businessCode=All_RoomType_data['businessCode'],
         resultCode=All_RoomType_data['resultCode'],
         Message='',
-        result="Failed",
+        result=Lastresult,
         CaseNumber=self['CaseNumber'])
-        Search_RoomType={'Result':False}
-        return Search_RoomType
         
     sql=("SELECT * FROM iPms.RoomType where id = '%s' and IsActive = 1;")%self['RoomTypeId']
     curs = conn.cursor()
@@ -288,6 +248,68 @@ def RoomType_Status(**self):
                  CaseNumber=self['CaseNumber'])
             RoomType_Status={'Result':False}
             return RoomType_Status
+
+def BatchAdd_RoomType(**self):
+        payload = [{
+                    "RoomTypeName":   self['RoomTypeName1'],
+                    "weekdayPrice":   self['weekdayPrice'],
+                    "OTARoomTypeName":self['OTARoomTypeName'],
+                    "OTARoomTypeId":  self['OTARoomTypeId'],
+                    "Rooms": [
+            {
+                "RoomNumber": self['RoomNumber1_1']
+            },
+            {
+                "RoomNumber": self['RoomNumber1_2']
+            }
+                              ]
+                   },
+                {
+                    "RoomTypeName":   self['RoomTypeName2'],
+                    "weekdayPrice":   self['weekdayPrice'],
+                    "Rooms": [
+            {
+                "RoomNumber": self['RoomNumber2_1']
+            },
+            {
+                "RoomNumber": self['RoomNumber2_2']
+            }
+        ]
+        }]
+        
+                   
+        r = requests.request('POST', self['url'], headers=Headers ,data=json.dumps(payload))
+
+        BatchAdd_RoomType_data = json.loads(r.text)
+        businessCode=CommonMoudle(BatchAdd_RoomType_data['businessCode'] ,200)
+        resultCode=CommonMoudle(BatchAdd_RoomType_data['resultCode'] ,200)
+        Message=BatchAdd_RoomType_data['Message']
+
+         
+        if businessCode & resultCode ==True:
+            print "BatchAdd_RoomType is Pass. Message:%s Date:%s"%(Message,today)             
+            Save(name="BatchAdd_RoomType",
+                 businessCode=BatchAdd_RoomType_data['businessCode'],
+                 resultCode=BatchAdd_RoomType_data['resultCode'],
+                 Message=BatchAdd_RoomType_data['Message'],
+                 result="Pass",
+                 CaseNumber=self['CaseNumber'])
+            BatchAdd_RoomType={'RoomTypeName1':RoomTypeName,
+               'RoomNumber':RoomNumber,
+               'Result':True}
+            return BatchAdd_RoomType
+
+        else:
+            print "BatchAdd_RoomType is Failed. Message:%s Date:%s"%(Message,today)
+            Save(name="BatchAdd_RoomType",
+                 businessCode=BatchAdd_RoomType_data['businessCode'],
+                 resultCode=BatchAdd_RoomType_data['resultCode'],
+                 Message=BatchAdd_RoomType_data['Message'],
+                 result="Failed",
+                 CaseNumber=self['CaseNumber'])
+            BatchAdd_RoomType={'Result':False}
+            return BatchAdd_RoomType       
+
         
 def Save(**self):
     ft = Font(name='Arial Unicode MS',
@@ -340,7 +362,15 @@ def Save(**self):
                                    
 if __name__ == "__main__":
     RoomTypeName=GetNumber(8)
+    RoomTypeName1=GetNumber(8)
+    RoomTypeName2=GetNumber(8)  
+      
     RoomNumber=GetNumber(10)
+    RoomNumber1=GetNumber(10)
+    RoomNumber2=GetNumber(10)
+    RoomNumber3=GetNumber(10)
+    RoomNumber4=GetNumber(10)
+    
     NewRoomTypeName=GetNumber(9)
     
     RoomType=Add_RoomType(CaseNumber='TCS_001',
@@ -348,36 +378,48 @@ if __name__ == "__main__":
                           RoomTypeName=RoomTypeName,
                           RoomNumber=RoomNumber,
                           weekdayPrice='300')
-
-     
-    RoomType_Status(url=RoomType_Status_url,
-                    RoomTypeId=RoomType['RoomTypeId'],
-                    CaseNumber='TCS_001')
+# 
+#      
+#     RoomType_Status(url=RoomType_Status_url,
+#                     RoomTypeId=RoomType['RoomTypeId'],
+#                     CaseNumber='TCS_001')
 # 
 # #def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
 #     
 
-    Modify_RoomType(
-                    CaseNumber='TCS_001',
-                    url=RoomType_API_url,
-                    RoomTypeName=NewRoomTypeName,
-                    RoomTypeId=RoomType['RoomTypeId'],
-                    weekdayPrice=999,
-                    RoomNumber=RoomType['RoomNumber'],
-                    RoomID=RoomType['RoomID'],
-                    IsActive=False)
+#     Modify_RoomType(
+#                     CaseNumber='TCS_001',
+#                     url=RoomType_API_url,
+#                     RoomTypeName=NewRoomTypeName,
+#                     RoomTypeId=RoomType['RoomTypeId'],
+#                     weekdayPrice=999,
+#                     RoomNumber=RoomType['RoomNumber'],
+#                     RoomID=RoomType['RoomID'],
+#                     IsActive=False)
 #        
 #     Del_RoomType(url=RoomType_API_url, RoomTypeId=RoomType['RoomTypeId']) 
 #          
-    RoomType_Status(CaseNumber='TCS_001',
-                    url=RoomType_Status_url,
-                    RoomTypeId=RoomType['RoomTypeId'])
+#     RoomType_Status(CaseNumber='TCS_001',
+#                     url=RoomType_Status_url,
+#                     RoomTypeId=RoomType['RoomTypeId'])
 #      
     Search_RoomType(CaseNumber='TCS_001',
                     url=Search_RoomType_url,
                     RoomTypeName=RoomType['RoomTypeName'],
                     RoomNumber=RoomType['RoomNumber'],
                     RoomTypeId=RoomType['RoomTypeId'])
+    
+#     RoomType=BatchAdd_RoomType(CaseNumber='TCS_001',
+#                           url=Search_RoomType_url,
+#                           RoomTypeName1=RoomTypeName1,
+#                           OTARoomTypeName='Test',
+#                           OTARoomTypeId='Z23582JSC',
+#                           RoomNumber1_1=RoomNumber1,
+#                           RoomNumber1_2=RoomNumber2,
+#                           RoomTypeName2=RoomTypeName2,
+#                           RoomNumber2_1=RoomNumber3,
+#                           RoomNumber2_2=RoomNumber4,
+#                           weekdayPrice='300')
 
 
 
