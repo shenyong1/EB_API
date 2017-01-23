@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//Common/Check_In.py=utf-8
 encoding//Common/PO_Search.py=utf-8
 encoding//Common/RoomType.py=utf-8
 encoding//features/steps/RoomType.py=utf-8
