@@ -122,11 +122,19 @@ def BatchAdd_RoomType(**self):
 
          
         if businessCode & resultCode ==True:
-            print "BatchAdd_RoomType is Pass. Message:%s Date:%s"%(Message,today)             
-            BatchAdd_RoomType={'RoomTypeName1':RoomTypeName,
-               'RoomNumber':RoomNumber,
-               'Result':True}
-            return BatchAdd_RoomType
+            print "BatchAdd_RoomType is Pass. Message:%s Date:%s"%(Message,today)
+#             for type in range(0,7):
+#                  print type               
+#                 for number in range(0,10):
+#                      print number
+#                     RoomTypeId_S=('BatchAdd_RoomType_data'+'[data][%s]'+'[Rooms]'+'[%s][RoomTypeId]')%(type,number)
+#                     print RoomTypeId_S
+#                     RoomTypeId = json.loads(RoomTypeId_S)
+#                     print   RoomTypeId  
+            RoomTypeId1=BatchAdd_RoomType_data['data'][0]['Rooms'][0]['RoomTypeId']
+            RoomNumber1=BatchAdd_RoomType_data['data'][0]['Rooms'][0]['RoomNumber']
+            print BatchAdd_RoomType_data
+
 
         else:
             print "BatchAdd_RoomType is Failed. Message:%s Date:%s"%(Message,today)
