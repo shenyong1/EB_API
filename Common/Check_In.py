@@ -132,8 +132,52 @@ def BatchAdd_RoomType(**self):
 #                     RoomTypeId = json.loads(RoomTypeId_S)
 #                     print   RoomTypeId  
             RoomTypeId1=BatchAdd_RoomType_data['data'][0]['Rooms'][0]['RoomTypeId']
+            RoomTypeId2=BatchAdd_RoomType_data['data'][1]['Rooms'][0]['RoomTypeId']
             RoomNumber1=BatchAdd_RoomType_data['data'][0]['Rooms'][0]['RoomNumber']
-            print BatchAdd_RoomType_data
+            RoomNumber2=BatchAdd_RoomType_data['data'][0]['Rooms'][1]['RoomNumber']
+            RoomNumber3=BatchAdd_RoomType_data['data'][0]['Rooms'][2]['RoomNumber']            
+            RoomNumber4=BatchAdd_RoomType_data['data'][0]['Rooms'][3]['RoomNumber']
+            RoomNumber5=BatchAdd_RoomType_data['data'][0]['Rooms'][4]['RoomNumber']
+            RoomNumber6=BatchAdd_RoomType_data['data'][0]['Rooms'][5]['RoomNumber']
+            RoomNumber7=BatchAdd_RoomType_data['data'][0]['Rooms'][6]['RoomNumber']
+            RoomNumber8=BatchAdd_RoomType_data['data'][0]['Rooms'][7]['RoomNumber']
+            RoomNumber9=BatchAdd_RoomType_data['data'][0]['Rooms'][8]['RoomNumber']
+            RoomNumber10=BatchAdd_RoomType_data['data'][0]['Rooms'][9]['RoomNumber']
+            
+            RoomNumber11=BatchAdd_RoomType_data['data'][1]['Rooms'][0]['RoomNumber']
+            RoomNumber12=BatchAdd_RoomType_data['data'][1]['Rooms'][1]['RoomNumber']
+            RoomNumber13=BatchAdd_RoomType_data['data'][1]['Rooms'][2]['RoomNumber']            
+            RoomNumber14=BatchAdd_RoomType_data['data'][1]['Rooms'][3]['RoomNumber']
+            RoomNumber15=BatchAdd_RoomType_data['data'][1]['Rooms'][4]['RoomNumber']
+            RoomNumber16=BatchAdd_RoomType_data['data'][1]['Rooms'][5]['RoomNumber']
+            RoomNumber17=BatchAdd_RoomType_data['data'][1]['Rooms'][6]['RoomNumber']
+            RoomNumber18=BatchAdd_RoomType_data['data'][1]['Rooms'][7]['RoomNumber']
+            RoomNumber19=BatchAdd_RoomType_data['data'][1]['Rooms'][8]['RoomNumber']
+            RoomNumber20=BatchAdd_RoomType_data['data'][1]['Rooms'][9]['RoomNumber']
+
+            BatchAdd_RoomType={'RoomTypeId1':RoomTypeId1,
+                               'RoomTypeId2':RoomTypeId2,
+                               'RoomNumber1':RoomNumber1,
+                               'RoomNumber2':RoomNumber2,
+                               'RoomNumber3':RoomNumber3,
+                               'RoomNumber4':RoomNumber4,
+                               'RoomNumber5':RoomNumber5,
+                               'RoomNumber6':RoomNumber6,
+                               'RoomNumber7':RoomNumber7,
+                               'RoomNumber8':RoomNumber8,
+                               'RoomNumber9':RoomNumber9,
+                               'RoomNumber10':RoomNumber10,
+                               'RoomNumber11':RoomNumber11,
+                               'RoomNumber12':RoomNumber12,
+                               'RoomNumber13':RoomNumber13,
+                               'RoomNumber14':RoomNumber14,
+                               'RoomNumber15':RoomNumber15,
+                               'RoomNumber16':RoomNumber16,
+                               'RoomNumber17':RoomNumber17,
+                               'RoomNumber18':RoomNumber18,
+                               'RoomNumber19':RoomNumber19,
+                               'RoomNumber20':RoomNumber20}
+            return BatchAdd_RoomType
 
 
         else:
@@ -141,8 +185,99 @@ def BatchAdd_RoomType(**self):
             BatchAdd_RoomType={'Result':False}
             return BatchAdd_RoomType     
 
+def Check_In(**self):
+        payload = {
+    "OccupationChangedList": [],
+    "BillItemChangedList": [],
+    "CustomerChangedList": [],
+    "Data":
+    {
+    "Action": "1",
+    "BillItems": [
+        {
+            "IsDeposit": False,
+            "Amount": 100,
+            "CreditTypeValue": "C9140",
+            "CreditTypeName": "微信",
+            "DebitTypeValue": "D1000",
+            "DebitTypeName": "房费"
+        }
+    ],
+    "Channel": {
+        "k": "Hotel",
+        "v": "酒店前台"
+    },
+    "CheckinType": "Normal",
+    "HasGuaranty": False,
+    "IsCheckout": False,
+    "Liaison": {
+        "Address": "",
+        "Folk": "",
+        "Gender": "0",
+        "Mobile": "",
+        "Name": "",
+        "Point": 0.0,
+        "arrowStatus": False
+    },
+    "OccupationsInfo": [
+        {
+            "EndDateTime":"%s"%tomorrow,
+            "RoomFee": [
+                {
+                    "ActualPrice": 300.0,
+                    "Date": "%s"%today,
+                    "ExternalPrice": 0.0,
+                    "IsExternalPrice": False,
+                    "OrignMarketPrice": 300.0
+                }
+            ],
+            "RoomNumber": self['RoomNumber'],
+            "RoomType": {
+                "k": self['RoomTypeId'],
+                "v": "3"
+            },
+            "StartDateTime": "%s"%today
+        }
+    ],
+    "Remark": ""
+    }
+}
+        r = requests.request('POST',
+                              self['url'], 
+                              headers=Headers ,
+                              data=json.dumps(payload))
+
+        Check_In_data = json.loads(r.text)
+        businessCode=CommonMoudle(Check_In_data['businessCode'] ,200)
+        resultCode=CommonMoudle(Check_In_data['resultCode'] ,200) 
     
-  
+def Check_Out(**self):
+     payload = {
+    "RoomNumbers": [self['RoomNumber']],
+    "InternalRemark": "备注信息",
+    "BillItems": [{
+                "IsDeposit": False,
+                "Amount": 200,
+                "CreditTypeValue": "C9140",
+                "DebitTypeValue": "D1000",         
+                "PayState": "0"
+            },
+            {
+                "Reason": "",
+                "IsDeposit": False,
+                "Amount": 0.01,
+                "CreditTypeValue": "C9140",
+                "PayState": "0"
+            }]
+}
+                   
+        r = requests.request('PUT', self['url'], headers=Headers ,data=json.dumps(payload))
+
+        Check_Out_data = json.loads(r.text)
+        businessCode=CommonMoudle(Check_Out_data['businessCode'] ,200)
+        resultCode=CommonMoudle(Check_Out_data['resultCode'] ,200)
+
+
     
 
 if __name__ == "__main__":
@@ -198,6 +333,11 @@ if __name__ == "__main__":
                           RoomNumber2_9=RoomNumber[19],                            
                           RoomNumber2_10=RoomNumber[20],                            
                           weekdayPrice='300')
+    
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber1'])
+  
     
 
     

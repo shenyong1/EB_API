@@ -57,6 +57,8 @@ RoomType_Status_API   ='/api/rooms/CanDeleteRoomType/'
 
 PO_Search_API         ='/api/GuestFolios/eb/combine?OwnerIds=%s'%Headers['ownerid']
 
+Check_In_API          ='/api/ordercheckin/pos'
+
 
 
 RoomType_API_url     = Server+Port+RoomType_API
@@ -66,6 +68,8 @@ RoomType_Status_url  = Server+Port+RoomType_Status_API
 Search_RoomType_url  = Server+Port+Search_RoomType_API 
 
 PO_Search_url        = Server+Port+PO_Search_API 
+
+Check_In_url         = Server+Port+Check_In_API
 
 
 
