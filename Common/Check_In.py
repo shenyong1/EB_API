@@ -396,15 +396,7 @@ def BatchAdd_RoomType(**self):
 
          
         if businessCode & resultCode ==True:
-            print "BatchAdd_RoomType is Pass. Message:%s Date:%s"%(Message,today)
-#             for type in range(0,7):
-#                  print type               
-#                 for number in range(0,10):
-#                      print number
-#                     RoomTypeId_S=('BatchAdd_RoomType_data'+'[data][%s]'+'[Rooms]'+'[%s][RoomTypeId]')%(type,number)
-#                     print RoomTypeId_S
-#                     RoomTypeId = json.loads(RoomTypeId_S)
-#                     print   RoomTypeId  
+            print "BatchAdd_RoomType is Pass. Message:%s Date:%s"%(Message,today) 
             RoomTypeId1=BatchAdd_RoomType_data['data'][0]['Rooms'][0]['RoomTypeId']
             RoomTypeId2=BatchAdd_RoomType_data['data'][1]['Rooms'][0]['RoomTypeId']
             RoomTypeId3=BatchAdd_RoomType_data['data'][2]['Rooms'][0]['RoomTypeId']
@@ -414,12 +406,7 @@ def BatchAdd_RoomType(**self):
             RoomTypeId7=BatchAdd_RoomType_data['data'][6]['Rooms'][0]['RoomTypeId']
             RoomTypeId8=BatchAdd_RoomType_data['data'][7]['Rooms'][0]['RoomTypeId']
             RoomTypeId9=BatchAdd_RoomType_data['data'][8]['Rooms'][0]['RoomTypeId']    
-            
-            
-            
-            
-            
-            
+                        
             RoomNumber1=BatchAdd_RoomType_data['data'][0]['Rooms'][0]['RoomNumber']
             RoomNumber2=BatchAdd_RoomType_data['data'][0]['Rooms'][1]['RoomNumber']
             RoomNumber3=BatchAdd_RoomType_data['data'][0]['Rooms'][2]['RoomNumber']            
@@ -723,23 +710,6 @@ def Check_In(**self):
     
 
 if __name__ == "__main__":
-#     Order_Detail=All_Store(storeid=Headers['ownerid'],url=PO_Search_url)
-# 
-#     Name(url=PO_Search_url, 
-#          storeid=Headers['ownerid'],
-#          iphone="None",
-#          name='房客',
-#          OrgId='None',
-#          order='None',
-#          status='None')
-#     
-#     Time(url=PO_Search_url,
-#          storeid=Headers['ownerid'],
-#          roomTypeId='None',
-#          dateTimeType='0',
-#          queryDateTimeBegin='2016-12-12',
-#          queryDateTimeEnd='2016-12-13'
-#          )
 
     RoomTypeName = random.sample(xrange(90000000), 100)
     RoomNumber   = random.sample(xrange(80000000), 100)
