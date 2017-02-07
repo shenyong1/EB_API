@@ -657,7 +657,7 @@ def Check_In(**self):
         "Folk": "",
         "Gender": "0",
         "Mobile": "",
-        "Name": "",
+        "Name": "wangsheng",
         "Point": 0.0,
         "arrowStatus": False
     },
@@ -678,7 +678,7 @@ def Check_In(**self):
                 "k": self['RoomTypeId'],
                 "v": "3"
             },
-            "StartDateTime": "%s"%today
+            "StartDateTime": "%s"%yesterday
         }
     ],
     "Remark": ""
@@ -860,11 +860,306 @@ if __name__ == "__main__":
                           RoomNumber9_9=RoomNumber[89],                            
                           RoomNumber9_10=RoomNumber[90],                                    
                           weekdayPrice='300')
-    
+        
     Check_In(url=Check_In_url,
              RoomTypeId=RoomType['RoomTypeId1'],
              RoomNumber=RoomType['RoomNumber1'])
-  
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber2'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber3'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber4'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber5'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber6'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber7'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber8'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber9'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId1'],
+             RoomNumber=RoomType['RoomNumber10']) 
+    print "Check In 10"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber11'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber12'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber13'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber14'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber15'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber16'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber17'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber18'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber19'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId2'],
+             RoomNumber=RoomType['RoomNumber20'])
+    print "Check In 20"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber21'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber22'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber23'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber24'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber25'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber26'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber27'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber28'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber29'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId3'],
+             RoomNumber=RoomType['RoomNumber30'])
+    print "Check In 30"    
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber31'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber32'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber33'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber34'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber35'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber36'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber37'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber38'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber39'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId4'],
+             RoomNumber=RoomType['RoomNumber40'])
+    print "Check In 40"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber41'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber42'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber43'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber44'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber45'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber46'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber47'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber48'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber49'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId5'],
+             RoomNumber=RoomType['RoomNumber50'])
+    print "Check In 50"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber51'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber52'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber53'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber54'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber55'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber56'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber57'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber58'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber59'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId6'],
+             RoomNumber=RoomType['RoomNumber60'])
+    print "Check In 60"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber61'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber62'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber63'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber64'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber65'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber66'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber67'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber68'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber69'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId7'],
+             RoomNumber=RoomType['RoomNumber70'])
+    print "Check In 70"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber71'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber72'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber73'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber74'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber75'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber76'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber77'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber78'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber79'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId8'],
+             RoomNumber=RoomType['RoomNumber80'])
+    print "Check In 80"
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber81'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber82'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber83'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber84'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber85'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber86'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber87'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber88'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber89'])
+    Check_In(url=Check_In_url,
+             RoomTypeId=RoomType['RoomTypeId9'],
+             RoomNumber=RoomType['RoomNumber90'])
+    print "Check In 90"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
     
 
     

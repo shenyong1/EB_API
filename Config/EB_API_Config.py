@@ -38,8 +38,8 @@ conn1= MySQLdb.connect(
 
 FileName = time.strftime('%Y%m%d_%H:%M:%S',time.localtime(time.time()))
 today = datetime.date.today()
-yesterday= today - datetime.timedelta(days=1)
-tomorrow=today+datetime.timedelta(days=1)
+yesterday= today - datetime.timedelta(days=15)
+tomorrow=today+datetime.timedelta(days=15)
 
 #Server='http://192.168.32.179'
 
