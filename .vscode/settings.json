@@ -1,0 +1,6 @@
+{
+    "python.unitTest.nosetestArgs": [
+        "SmokeTests"
+    ],
+    "python.unitTest.nosetestsEnabled": true
+}

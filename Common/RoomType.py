@@ -1,37 +1,42 @@
-from Config.EB_API_Config import *
-from nose.config import flag
-import tablib
+import sys
 import os
-from random import choice
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+
 import string
-from _mysql import result
-from openpyxl import Workbook
-from openpyxl import load_workbook
-from openpyxl import Workbook
-from openpyxl.writer.excel import ExcelWriter
-from openpyxl import load_workbook
-from openpyxl.utils import get_column_letter
+import requests
+from random import choice
+
+import tablib
+from nose.config import flag
+from openpyxl import Workbook, load_workbook
 from openpyxl.styles import *
+from openpyxl.utils import get_column_letter
+from openpyxl.writer.excel import ExcelWriter
+
 from _ast import Return
+from _mysql import result
+from Config.EB_API_Config import *
 
 
-def GetNumber(length=8,chars=string.letters+string.digits):
+
+def GetNumber(length=8, chars=string.letters+string.digits):
     return ''.join([choice(chars) for i in range(length)])
 
-def CommonMoudle(Path,data):
-    if Path==data:
+def CommonMoudle(Path, data):
+    if Path == data:
         return True
     else:
         return False
 
 #def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
 def Modify_RoomType(**self):
-        payload = {
-                    "Id": self['RoomTypeId'],
-                    "RoomTypeName": self['RoomTypeName'],
-                    "weekdayPrice": self['weekdayPrice'],
-                    "IsActive": True,
-                    "Rooms": [
+    payload = {"Id": self['RoomTypeId'], 
+               "RoomTypeName": self['RoomTypeName'],
+               "weekdayPrice": self['weekdayPrice'],
+               "IsActive": True,
+               "Rooms": [
             {
                 "Id":self['RoomID'],
                 "RoomNumber": self['RoomNumber'],
@@ -39,21 +44,17 @@ def Modify_RoomType(**self):
             }
         ]
         }
-                   
-        r = requests.request('PUT', self['url'], headers=Headers ,data=json.dumps(payload))
-
-        Modify_RoomType_data = json.loads(r.text)
-        businessCode=CommonMoudle(Modify_RoomType_data['businessCode'] ,200)
-        resultCode=CommonMoudle(Modify_RoomType_data['resultCode'] ,200)
-
-         
-        if businessCode & resultCode ==True:
-            NewRoomTypeName=Modify_RoomType_data['data']['RoomTypeName']
-            NewIsActive=Modify_RoomType_data['data']['Rooms'][0]['IsActive']
-            weekdayPrice=Modify_RoomType_data['data']['weekdayPrice']        
-            RoomNumber=Modify_RoomType_data['data']['Rooms'][0]['RoomNumber']
-            RoomTypeId=Modify_RoomType_data['data']['Rooms'][0]['RoomTypeId'] 
-            if weekdayPrice==999 and NewRoomTypeName==str(self['RoomTypeName']) and NewIsActive==False:
+    r = requests.request('PUT', self['url'], headers=Headers, data=json.dumps(payload))
+    Modify_RoomType_data = json.loads(r.text)
+    businessCode = CommonMoudle(Modify_RoomType_data['businessCode'] , 200)
+    resultCode = CommonMoudle(Modify_RoomType_data['resultCode'], 200)
+    if businessCode & resultCode == True:
+            NewRoomTypeName = Modify_RoomType_data['data']['RoomTypeName']
+            NewIsActive = Modify_RoomType_data['data']['Rooms'][0]['IsActive']
+            weekdayPrice = Modify_RoomType_data['data']['weekdayPrice']        
+            RoomNumber = Modify_RoomType_data['data']['Rooms'][0]['RoomNumber']
+            RoomTypeId = Modify_RoomType_data['data']['Rooms'][0]['RoomTypeId'] 
+            if weekdayPrice == 999 and NewRoomTypeName==str(self['RoomTypeName']) and NewIsActive==False:
                 print "Modify_RoomType is Pass. Date:%s"%today
                 Save(name="Modify_RoomType",
                      businessCode=Modify_RoomType_data['businessCode'],
@@ -73,7 +74,7 @@ def Modify_RoomType(**self):
                      CaseNumber=self['CaseNumber'])
                 Modify_RoomType={'Result':False}
                 return Modify_RoomType
-        else:
+    else:
             print "Modify_RoomType is Failed. Date:%s"%today
             Save(data=Modify_RoomType_data,
                  name="Modify_RoomType",
@@ -420,13 +421,3 @@ if __name__ == "__main__":
 #                           RoomNumber2_1=RoomNumber3,
 #                           RoomNumber2_2=RoomNumber4,
 #                           weekdayPrice='300')
-
-
-
-
-
-    
-    
-    
-    
-    

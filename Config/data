@@ -1,3 +1,0 @@
- <add name="AppConnectionString" connectionString="User ID=ipms; Password=ghHZD5vg1a%uE5U2NQEn; Host=internal-lb-ipms01-db01-2076465430.cn-north-1.elb.amazonaws.com.cn; Database=iPmsApp;" providerName="System.Data.Sqlclient" />
-    <add name="PinnedConnectionString" connectionString="User ID=ipms; Password=ghHZD5vg1a%uE5U2NQEn; Host=internal-lb-ipms01-db01-2076465430.cn-north-1.elb.amazonaws.com.cn; Database=iPms;" providerName="System.Data.Sqlclient" />
-    <add name="BizConnectionString" connectionString="User ID=ipms; Password=ghHZD5vg1a%uE5U2NQEn; Host=internal-lb-ipms01-db01-2076465430.cn-north-1.elb.amazonaws.com.cn; Database=iPmsBiz;" providerName="System.Data.Sqlclient" />

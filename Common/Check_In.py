@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-from Config.EB_API_Config import *
-from nose.config import flag
-from string import lower
-from random import choice
-import string
 import random
+import string
+from random import choice
+from string import lower
+
+from nose.config import flag
+
+from Config.EB_API_Config import *
+
 
 def GetNumber(length=8,chars=string.letters+string.digits):
     return ''.join([choice(chars) for i in range(length)])
@@ -388,6 +391,7 @@ def BatchAdd_RoomType(**self):
         
                    
         r = requests.request('POST', self['url'], headers=Headers ,data=json.dumps(payload))
+        print r.elapsed.microseconds/1000
 
         BatchAdd_RoomType_data = json.loads(r.text)
         businessCode=CommonMoudle(BatchAdd_RoomType_data['businessCode'] ,200)
@@ -1110,29 +1114,3 @@ if __name__ == "__main__":
              RoomTypeId=RoomType['RoomTypeId9'],
              RoomNumber=RoomType['RoomNumber90'])
     print "Check In 90"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-    
-
-    
-
-    
-    
