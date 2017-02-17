@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Common.RoomType import *
 
 class UseTest():
@@ -14,7 +15,7 @@ class UseTest():
         RoomNumber     =GetNumber(10)
         NewRoomTypeName=GetNumber(9)
         NewRoomNumber  =GetNumber(7)
-  
+#1新增房型1和新增房间1，Pass
         RoomType=Add_RoomType(CaseNumber=self.CaseNumber,
                               url=RoomType_API_url,
                               RoomTypeName=RoomTypeName,
@@ -23,7 +24,8 @@ class UseTest():
         Result = RoomType['Result']
         if (Result != True):
             return Result
-        
+
+#2检查新增的房型1和房间1状态 ，Pass       
         Status=RoomType_Status(CaseNumber=self.CaseNumber,
                                url=RoomType_Status_url,
                         RoomTypeId=RoomType['RoomTypeId'])
@@ -31,7 +33,8 @@ class UseTest():
         Result = Status['Result']
         if (Result != True):
             return Result
-        
+
+#3在房型1下新增房间2，Pass        
         RoomType1=Add_RoomType(CaseNumber=self.CaseNumber,
                               url=RoomType_API_url,
                               RoomTypeName=RoomType['RoomTypeName'],
@@ -40,7 +43,8 @@ class UseTest():
         Result = RoomType1['Result']
         if (Result != True):
             return Result
-        
+
+#4新增已存在的房型和房间，Failed        
         RoomType2=Add_RoomType(CaseNumber=self.CaseNumber,
                               url=RoomType_API_url,
                               RoomTypeName=RoomType['RoomTypeName'],
@@ -50,7 +54,7 @@ class UseTest():
         if (Result != False):
             return Result
         
-        
+#5删除房型1，Pass        
         Del=Del_RoomType(CaseNumber=self.CaseNumber,
                      url=RoomType_API_url, 
                      RoomTypeId=RoomType['RoomTypeId'])
@@ -58,7 +62,8 @@ class UseTest():
         Result = Del['Result']
         if (Result != True):
             return Result
-        
+
+#6新增房型1和房间1，Pass        
         RoomType3=Add_RoomType(CaseNumber=self.CaseNumber,
                               url=RoomType_API_url,
                               RoomTypeName=RoomType['RoomTypeName'],
@@ -67,7 +72,8 @@ class UseTest():
         Result = RoomType3['Result']
         if (Result != True):
             return Result        
-                        
+
+#7搜索新增的房型1和房间1，Pass                        
         Serach=Search_RoomType(CaseNumber=self.CaseNumber,
                                url=Search_RoomType_url,
                                RoomTypeName=RoomType3['RoomTypeName'],

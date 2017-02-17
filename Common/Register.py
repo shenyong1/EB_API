@@ -81,7 +81,7 @@ if __name__ == "__main__":
 #     print RoomTypeName
 #     print RoomNumber
     for num in range(1,1001):
-        if num !=1000:
+        if num !=10:
             print "num:%s"%(num)
             Register(url=Register_API_url)
         else:

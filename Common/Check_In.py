@@ -679,10 +679,17 @@ def Check_In(**self):
                               self['url'], 
                               headers=Headers ,
                               data=json.dumps(payload))
+        
+        T=r.elapsed.microseconds/1000
 
         Check_In_data = json.loads(r.text)
         businessCode=CommonMoudle(Check_In_data['businessCode'] ,200)
         resultCode=CommonMoudle(Check_In_data['resultCode'] ,200) 
+
+        if businessCode & resultCode ==True and T<300:
+            print "Checck In is Pass.Time:%s ms"%(T)  
+        else:
+            print "Checck In is Failed.Time:%s ms"%(T) 
     
 # def Check_Out(**self):
 #      payload = {
@@ -720,7 +727,7 @@ if __name__ == "__main__":
     print RoomTypeName
     print RoomNumber
     
-    Del_All(ownerId='434265567985665')
+#     Del_All(ownerId='434265567985665')
     
     RoomType=BatchAdd_RoomType(CaseNumber='TCS_001',
                           url=Search_RoomType_url,

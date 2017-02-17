@@ -10,26 +10,19 @@ class UseTest():
 
 
     def Test(self,CaseNumber):
-        RoomTypeName=GetNumber(8)
-        RoomTypeName1=GetNumber(8)
-        RoomTypeName2=GetNumber(8)  
-        RoomNumber=GetNumber(10)
-        RoomNumber1=GetNumber(10)
-        RoomNumber2=GetNumber(10)
-        RoomNumber3=GetNumber(10)
-        RoomNumber4=GetNumber(10)
-        NewRoomTypeName=GetNumber(9)
+        RoomTypeName = random.sample(xrange(90000000), 100)
+        RoomNumber   = random.sample(xrange(80000000), 100)
   
         RoomType=BatchAdd_RoomType(CaseNumber=self.CaseNumber,
                           url=Search_RoomType_url,
-                          RoomTypeName1=RoomTypeName1,
+                          RoomTypeName1=RoomTypeName[1],
                           OTARoomTypeName='Test',
                           OTARoomTypeId='Z23582JSC',
-                          RoomNumber1_1=RoomNumber1,
-                          RoomNumber1_2=RoomNumber2,
-                          RoomTypeName2=RoomTypeName2,
-                          RoomNumber2_1=RoomNumber3,
-                          RoomNumber2_2=RoomNumber4,
+                          RoomNumber1_1=RoomNumber[1],
+                          RoomNumber1_2=RoomNumber[2],
+                          RoomTypeName2=RoomTypeName[2],
+                          RoomNumber2_1=RoomNumber[3],
+                          RoomNumber2_2=RoomNumber[4],
                           weekdayPrice='300')
         Result = RoomType['Result']
         if (Result != True):

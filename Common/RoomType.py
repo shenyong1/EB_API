@@ -280,6 +280,7 @@ def BatchAdd_RoomType(**self):
         
                    
         r = requests.request('POST', self['url'], headers=Headers ,data=json.dumps(payload))
+        T=r.elapsed.microseconds/1000
 
         BatchAdd_RoomType_data = json.loads(r.text)
         businessCode=CommonMoudle(BatchAdd_RoomType_data['businessCode'] ,200)
@@ -287,21 +288,19 @@ def BatchAdd_RoomType(**self):
         Message=BatchAdd_RoomType_data['Message']
 
          
-        if businessCode & resultCode ==True:
-            print "BatchAdd_RoomType is Pass. Message:%s Date:%s"%(Message,today)             
+        if businessCode & resultCode ==True and T<300:
+            print "BatchAdd_RoomType is Pass. Message:%s Date:%s Time:%s"%(Message,today,T)             
             Save(name="BatchAdd_RoomType",
                  businessCode=BatchAdd_RoomType_data['businessCode'],
                  resultCode=BatchAdd_RoomType_data['resultCode'],
                  Message=BatchAdd_RoomType_data['Message'],
                  result="Pass",
                  CaseNumber=self['CaseNumber'])
-            BatchAdd_RoomType={'RoomTypeName1':RoomTypeName,
-               'RoomNumber':RoomNumber,
-               'Result':True}
+            BatchAdd_RoomType={'Result':True}
             return BatchAdd_RoomType
 
         else:
-            print "BatchAdd_RoomType is Failed. Message:%s Date:%s"%(Message,today)
+            print "BatchAdd_RoomType is Failed. Message:%s Date:%s Time:%s"%(Message,today,T)
             Save(name="BatchAdd_RoomType",
                  businessCode=BatchAdd_RoomType_data['businessCode'],
                  resultCode=BatchAdd_RoomType_data['resultCode'],
