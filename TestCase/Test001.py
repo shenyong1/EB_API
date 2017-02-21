@@ -2,6 +2,7 @@
 import sys
 import os
 import nose
+import string
 from nose.tools import assert_not_equal, assert_equal
 from nose.plugins.plugintest import run_buffered as run  
 from htmloutput.htmloutput import HtmlOutput 

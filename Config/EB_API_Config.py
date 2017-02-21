@@ -7,6 +7,8 @@ import datetime
 import time
 import MySQLdb
 import MySQLdb.cursors
+import string
+from random import choice
 from Common.PO_Search import *
 
 #获取随机函数
