@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import json
 import random
@@ -7,6 +8,15 @@ import time
 import MySQLdb
 import MySQLdb.cursors
 from Common.PO_Search import *
+
+def GetNumber(length=8, chars=string.letters+string.digits):
+    return ''.join([choice(chars) for i in range(length)])
+
+def CommonMoudle(Path, data):
+    if Path == data:
+        return True
+    else:
+        return False
 
 Room ={'RoomTypeName':random.getrandbits(20),
        'RoomNumber':random.getrandbits(20),
@@ -43,7 +53,7 @@ tomorrow=today+datetime.timedelta(days=15)
 
 #Server='http://192.168.32.179'
 
-#Server='http://192.168.32.179'
+# Server='http://192.168.32.179'
 Server='http://106.75.96.69:'
 
 Port='8001'

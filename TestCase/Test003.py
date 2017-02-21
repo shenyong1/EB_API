@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 from Common.RoomType import *
 
-class UseTest():
-    def __init__(self, CaseNumber):
-        self.CaseNumber = CaseNumber
+class Test003():
+    # def __init__(self, CaseNumber):
+    #     self.CaseNumber = CaseNumber
 
     def Setup(self):
         print "Test Start"
 
 
 
-    def Test(self,CaseNumber):
+    def Test(self):
+        self.CaseNumber="Test002"
         RoomTypeName   =GetNumber(8)
         RoomNumber     =GetNumber(10)
         NewRoomTypeName=GetNumber(9)

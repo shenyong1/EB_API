@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import os
 curPath = os.path.abspath(os.path.dirname(__file__))
@@ -18,17 +19,6 @@ from openpyxl.writer.excel import ExcelWriter
 from _ast import Return
 from _mysql import result
 from Config.EB_API_Config import *
-
-
-
-def GetNumber(length=8, chars=string.letters+string.digits):
-    return ''.join([choice(chars) for i in range(length)])
-
-def CommonMoudle(Path, data):
-    if Path == data:
-        return True
-    else:
-        return False
 
 #def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
 def Modify_RoomType(**self):
