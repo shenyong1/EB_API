@@ -9,9 +9,11 @@ import MySQLdb
 import MySQLdb.cursors
 from Common.PO_Search import *
 
+#获取随机函数
 def GetNumber(length=8, chars=string.letters+string.digits):
     return ''.join([choice(chars) for i in range(length)])
 
+#bussnesscode和resultcode的判断
 def CommonMoudle(Path, data):
     if Path == data:
         return True
