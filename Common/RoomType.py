@@ -20,7 +20,6 @@ from _ast import Return
 from _mysql import result
 from Config.EB_API_Config import *
 
-#def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
 def Modify_RoomType(**self):
     payload = {"Id": self['RoomTypeId'], 
                "RoomTypeName": self['RoomTypeName'],
@@ -135,43 +134,6 @@ def Search_RoomType(**self):
         Search_RoomType = {"Result":False}
         return Search_RoomType
         
-        
-    
-
-    # for v in All_RoomType_data['data']:
-    #     i=v
-    #     if i['RoomTypeName']==self['RoomTypeName']:
-    #         Message="Add_RoomType is Pass In Search_RoomType!. Date:%s"%today
-    #         Lastresult="Pass"
-    #         break        
-    #     else:
-    #         Message="Add_RoomType is Failed In Search_RoomType!. Date:%s"%today
-    #         Lastresult="Failed"
-    # print Message
-    # Save(name="Search_All_RoomType",
-    #      businessCode=All_RoomType_data['businessCode'],
-    #     resultCode=All_RoomType_data['resultCode'],
-    #     Message='',
-    #     result=Lastresult,
-    #     CaseNumber=self['CaseNumber'])
-        
-    # sql=("SELECT * FROM iPms.RoomType where id = '%s' and IsActive = 1;")%self['RoomTypeId']
-    # curs = conn.cursor()
-    # RoomTypeTotal=curs.execute(sql)
-    # All_RoomType_Total_Data=curs.fetchall()
-    # conn.close()
-    
-    # if RoomTypeTotal==1:
-    #     print "Data:RoomType TotalAmount is Right"
-    #     Save(data=RoomTypeTotal,name="Search_All_RoomType_Total",result="Pass")
-    #     Search_RoomType={'Result':True}
-    #     return Search_RoomType
-    # else:
-    #     print "Data:RoomType TotalAmount is Error"
-    #     Save(data=RoomTypeTotal,name="Search_All_RoomType_Total",result="Failed")
-    #     Search_RoomType={'Result':False}
-    #     return Search_RoomType
-        
 def RoomType_Status(**self):
     r = requests.request('GET', self['url']+self['RoomTypeId'], headers=Headers)
     RoomType_Status_data = json.loads(r.text)
@@ -186,38 +148,6 @@ def RoomType_Status(**self):
         RoomType_Status={'Result':False}
         return RoomType_Status
 
-        # Status=CommonMoudle(RoomType_Status_data['data'] ,True)
-        # if Status==True:
-            # print "RoomType_Status is True. Date:%s"%today
-            # Save(name="RoomType_Status",
-            #      businessCode=RoomType_Status_data['businessCode'],
-            #      resultCode=RoomType_Status_data['resultCode'],
-            #      Message=RoomType_Status_data['data'],                 
-            #      result="Pass",
-            #      CaseNumber=self['CaseNumber'])
-        #     RoomType_Status={'Result':True}
-        #     return RoomType_Status
-        # elif Status==False:
-            # print "RoomType_Status is False. Date:%s"%today
-            # Save(name="RoomType_Status",
-            #      businessCode=RoomType_Status_data['businessCode'],
-            #      resultCode=RoomType_Status_data['resultCode'],
-            #      Message=RoomType_Status_data['data'],                 
-            #      result="Failed",
-            #      CaseNumber=self['CaseNumber']
-            #      )
-        #     RoomType_Status={'Result':True}
-        #     return RoomType_Status
-        # else:
-            # print "RoomType_Status is failed. Date:%s"%today
-            # Save(name="RoomType_Status",
-            #      businessCode=RoomType_Status_data['businessCode'],
-            #      resultCode=RoomType_Status_data['resultCode'],
-            #      Message=RoomType_Status_data['data'],                 
-            #      result="Failed",
-            #      CaseNumber=self['CaseNumber'])
-            # RoomType_Status={'Result':False}
-            # return RoomType_Status
 
 def BatchAdd_RoomType(**self):
         payload = [{
@@ -258,24 +188,10 @@ def BatchAdd_RoomType(**self):
 
          
         if businessCode & resultCode ==True:
-            # print "BatchAdd_RoomType is Pass. Message:%s Date:%s Time:%s"%(Message,today,T)             
-            # Save(name="BatchAdd_RoomType",
-            #      businessCode=BatchAdd_RoomType_data['businessCode'],
-            #      resultCode=BatchAdd_RoomType_data['resultCode'],
-            #      Message=BatchAdd_RoomType_data['Message'],
-            #      result="Pass",
-            #      CaseNumber=self['CaseNumber'])
             BatchAdd_RoomType={'Result':True}
             return BatchAdd_RoomType
 
         else:
-            # print "BatchAdd_RoomType is Failed. Message:%s Date:%s Time:%s"%(Message,today,T)
-            # Save(name="BatchAdd_RoomType",
-            #      businessCode=BatchAdd_RoomType_data['businessCode'],
-            #      resultCode=BatchAdd_RoomType_data['resultCode'],
-            #      Message=BatchAdd_RoomType_data['Message'],
-            #      result="Failed",
-            #      CaseNumber=self['CaseNumber'])
             BatchAdd_RoomType={'Result':False}
             return BatchAdd_RoomType       
 
