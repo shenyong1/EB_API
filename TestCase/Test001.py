@@ -2,7 +2,6 @@
 import sys
 import os
 import nose
-import string
 from nose.tools import assert_not_equal, assert_equal
 from nose.plugins.plugintest import run_buffered as run  
 from htmloutput.htmloutput import HtmlOutput 
@@ -59,9 +58,12 @@ class Test001():
                         IsActive=False)
         
         Result = Modify['Result']
+        weekdayPrice = Modify['weekdayPrice']
+
 #         if (Result != True):
 #             return Result
         assert_equal(Result,True)
+        assert_equal(weekdayPrice,999)
         
         Del=Del_RoomType(CaseNumber=self.CaseNumber,
                      url=RoomType_API_url, 
@@ -91,7 +93,7 @@ class Test001():
         Result = Serach['Result']
 #         if (Result != True):
 #             return Result        
-        assert_not_equal(Result,True)
+        assert_equal(Result,True)
                 
     def tearDown(self):
         print "Test End"
