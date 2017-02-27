@@ -70,8 +70,7 @@ class Test001():
 
         
         Result = Status['Result']
-        print Result
-        assert_equal(Result,True,msg="businessCode and resultCode is Error")
+        assert_equal(Result,False,msg="businessCode and resultCode is Error")
         
         Serach=Search_RoomType(CaseNumber=self.CaseNumber,
                                url=Search_RoomType_url,
@@ -80,7 +79,7 @@ class Test001():
                                RoomTypeId=RoomType['RoomTypeId'])
 
         Result = Serach['Result']
-        assert_not_equal(Result,True,msg="businessCode and resultCode is Error")
+        assert_equal(Result,False,msg="businessCode and resultCode is Error")
                 
     def tearDown(self):
         print "Test End"

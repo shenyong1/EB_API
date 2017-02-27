@@ -179,12 +179,12 @@ def RoomType_Status(**self):
     resultCode=CommonMoudle(RoomType_Status_data['resultCode'] ,200) 
 
     if businessCode & resultCode ==True:
-        RoomType_Status=RoomType_Status_data['data']
+        Result=CommonMoudle(RoomType_Status_data['data'] ,True)
+        RoomType_Status={'Result':Result}
         return RoomType_Status
     else:
         RoomType_Status={'Result':False}
-        return RoomType_Status   
-
+        return RoomType_Status
 
         # Status=CommonMoudle(RoomType_Status_data['data'] ,True)
         # if Status==True:
@@ -349,11 +349,11 @@ if __name__ == "__main__":
                           weekdayPrice='300')
 # 
 #      
-#     RoomType_Status(url=RoomType_Status_url,
-#                     RoomTypeId=RoomType['RoomTypeId'],
-#                     CaseNumber='TCS_001')
-# 
-# #def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
+    RoomType_Status(url=RoomType_Status_url,
+                    RoomTypeId=RoomType['RoomTypeId'],
+                    CaseNumber='TCS_001')
+
+#def Modify_RoomType(url,RoomTypeName,RoomTypeId,weekdayPrice,RoomNumber1,RoomID,IsActive1):
 #     
 
 #     Modify_RoomType(
@@ -372,11 +372,11 @@ if __name__ == "__main__":
 #                     url=RoomType_Status_url,
 #                     RoomTypeId=RoomType['RoomTypeId'])
 #      
-    Search_RoomType(CaseNumber='TCS_001',
-                    url=Search_RoomType_url,
-                    RoomTypeName=RoomType['RoomTypeName'],
-                    RoomNumber=RoomType['RoomNumber'],
-                    RoomTypeId=RoomType['RoomTypeId'])
+    # Search_RoomType(CaseNumber='TCS_001',
+    #                 url=Search_RoomType_url,
+    #                 RoomTypeName=RoomType['RoomTypeName'],
+    #                 RoomNumber=RoomType['RoomNumber'],
+    #                 RoomTypeId=RoomType['RoomTypeId'])
     
 #     RoomType=BatchAdd_RoomType(CaseNumber='TCS_001',
 #                           url=Search_RoomType_url,
