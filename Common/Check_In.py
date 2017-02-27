@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 import random
 import string
+import sys
+import os
 from random import choice
 from string import lower
 
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+
 from nose.config import flag
-
 from Config.EB_API_Config import *
-
 
 def GetNumber(length=8,chars=string.letters+string.digits):
     return ''.join([choice(chars) for i in range(length)])

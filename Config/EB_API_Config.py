@@ -27,8 +27,8 @@ Room ={'RoomTypeName':random.getrandbits(20),
        'NewRoomTypeName':random.getrandbits(30)}
 
 Headers={'Content-Type':'application/json',
-         'ownerid':'11222211',
-         'orgid':'11222211'}
+         'ownerid':'434265567985665',
+         'orgid':'434265567985667'}
 
 conn= MySQLdb.connect(
         host='192.168.9.24',
@@ -57,10 +57,10 @@ tomorrow=today+datetime.timedelta(days=15)
 
 #Server='http://192.168.32.179'
 
-# Server='http://192.168.32.179'
-Server='http://106.75.96.69:'
+Server='http://192.168.32.179'
+# Server='http://testwww.51pms.net:'
 
-Port='8001'
+Port=''
 
 
 RoomType_API          ='/api/rooms/RoomType/'

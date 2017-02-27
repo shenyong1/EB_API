@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import sys
 import os
 import nose
@@ -33,20 +33,15 @@ class Test001():
 
         Result = RoomType['Result']
 
-#         if (Result != True):
-#             return Result
-        assert_equal(Result,True)
-        
-        
+        assert_equal(Result,True,msg="businessCode and resultCode is Error")
+               
         Status=RoomType_Status(CaseNumber=self.CaseNumber,
                                url=RoomType_Status_url,
                         RoomTypeId=RoomType['RoomTypeId'])
 
         
         Result = Status['Result']
-#         if (Result != True):
-#             return Result
-        assert_equal(Result,True)
+        assert_equal(Result,True,msg="businessCode and resultCode is Error")
         
         Modify=Modify_RoomType(CaseNumber=self.CaseNumber,
                                url=RoomType_API_url,
@@ -59,20 +54,15 @@ class Test001():
         
         Result = Modify['Result']
         weekdayPrice = Modify['weekdayPrice']
-
-#         if (Result != True):
-#             return Result
         assert_equal(Result,True)
-        assert_equal(weekdayPrice,999)
+        assert_equal(weekdayPrice,999,msg="weekdayPrice is Error")
         
         Del=Del_RoomType(CaseNumber=self.CaseNumber,
                      url=RoomType_API_url, 
                      RoomTypeId=RoomType['RoomTypeId'])
          
         Result = Del['Result']
-#         if (Result != True):
-#             return Result
-        assert_equal(Result,True)
+        assert_equal(Result,True,msg="businessCode and resultCode is Error")
         
         Status=RoomType_Status(CaseNumber=self.CaseNumber,
                                url=RoomType_Status_url,
@@ -80,9 +70,8 @@ class Test001():
 
         
         Result = Status['Result']
-#         if (Result != True):
-#             return Result
-        assert_equal(Result,True)
+        print Result
+        assert_equal(Result,True,msg="businessCode and resultCode is Error")
         
         Serach=Search_RoomType(CaseNumber=self.CaseNumber,
                                url=Search_RoomType_url,
@@ -91,9 +80,7 @@ class Test001():
                                RoomTypeId=RoomType['RoomTypeId'])
 
         Result = Serach['Result']
-#         if (Result != True):
-#             return Result        
-        assert_equal(Result,True)
+        assert_not_equal(Result,True,msg="businessCode and resultCode is Error")
                 
     def tearDown(self):
         print "Test End"
@@ -102,10 +89,6 @@ class Test001():
 #         outfile = os.path.join(path, "result.html")  
 #         print outfile
 #         run(argv=['nosetests', '-v','--with-html-output','--html-out-file=result.html'],plugins=[HtmlOutput()])
-        
-# if __name__ == "__main__":
-#     TestNumber()
-
 
 
     
