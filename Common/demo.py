@@ -1,6 +1,3 @@
-from openpyxl import load_workbook
-from openpyxl.utils import get_column_letter
-wangsheng
 wb = load_workbook(filename=u'D:\EB_API\TestReport\TestReport.xlsx')
 
 
